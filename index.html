@@ -8,17 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         
         :root {
-            --primary-color: #25D366;
-            --secondary-color: #128C7E;
-            --accent-color: #075E54;
-            --text-color: #ffffff;
-            --text-dark: #333333;
-            --bg-light: #f8f9fa;
-            --bg-dark: #0a0e27;
-            --card-bg: rgba(255, 255, 255, 0.1);
+            --primary: #25D366;
+            --secondary: #128C7E;
+            --accent: #075E54;
+            --dark: #0f0f23;
+            --light: #ffffff;
+            --gray: #9ca3af;
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
@@ -34,66 +32,29 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-color);
-            background-color: var(--bg-dark);
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
             overflow-x: hidden;
         }
         
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .preloader.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loader {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-top-color: var(--primary-color);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Scrollbar */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         
         ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
+            background: var(--dark);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
+            background: var(--primary);
+            border-radius: 4px;
         }
         
         /* Navigation */
         .navbar {
-            background-color: rgba(10, 14, 39, 0.8);
+            background-color: rgba(15, 15, 35, 0.8);
             backdrop-filter: blur(10px);
             padding: 15px 0;
             position: fixed;
@@ -103,9 +64,9 @@
         }
         
         .navbar-brand {
-            color: var(--text-color) !important;
             font-weight: 700;
             font-size: 1.5rem;
+            color: var(--light) !important;
             display: flex;
             align-items: center;
         }
@@ -115,11 +76,11 @@
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--primary);
         }
         
         .nav-link {
-            color: var(--text-color) !important;
+            color: var(--light) !important;
             margin: 0 10px;
             font-weight: 500;
             position: relative;
@@ -133,7 +94,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--primary-color);
+            background: var(--primary);
             transition: width 0.3s ease;
         }
         
@@ -143,7 +104,7 @@
         
         .navbar-toggler {
             border: none;
-            color: var(--text-color);
+            color: var(--light);
         }
         
         .navbar-toggler:focus {
@@ -152,10 +113,10 @@
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
             position: relative;
             overflow: hidden;
         }
@@ -167,40 +128,38 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://files.catbox.moe/e6eu1t.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(37, 211, 102, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+            z-index: 0;
         }
         
         .hero-content {
+            position: relative;
+            z-index: 1;
             padding: 120px 0 80px;
         }
         
-        .hero-img-container {
-            position: relative;
-            margin-bottom: 30px;
-        }
-        
-        .hero-img {
-            width: 250px;
-            height: 250px;
-            border-radius: 30px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .hero-title span {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -209,66 +168,111 @@
         
         .hero-subtitle {
             font-size: 1.3rem;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
         }
         
-        .btn-custom {
-            padding: 12px 30px;
-            border-radius: 50px;
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .btn-hero {
+            padding: 14px 30px;
+            border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             transition: all 0.3s ease;
             border: none;
-            margin: 10px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            font-size: 1rem;
         }
         
-        .btn-custom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-1);
-            z-index: -1;
-            transition: all 0.3s ease;
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
         }
         
-        .btn-custom:hover {
+        .btn-primary:hover {
+            background: var(--secondary);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
         }
         
-        .btn-outline-custom {
+        .btn-outline {
             background: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--primary-color);
+            color: var(--light);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
         
-        .btn-outline-custom::before {
-            background: var(--primary-color);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
         
-        .btn-outline-custom:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .btn-outline-custom span {
+        .hero-image {
             position: relative;
             z-index: 1;
+        }
+        
+        .hero-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+        
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-1);
+            top: 10%;
+            left: -150px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .element-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-2);
+            bottom: 10%;
+            right: -100px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+        
+        .element-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-3);
+            top: 50%;
+            right: 10%;
+            animation: float 7s ease-in-out infinite;
         }
         
         /* Section Styles */
         .section {
             padding: 100px 0;
+            position: relative;
         }
         
         .section-title {
@@ -277,37 +281,30 @@
             font-size: 2.5rem;
             font-weight: 700;
             position: relative;
-            color: var(--text-color);
         }
         
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+        .section-title span {
             background: var(--gradient-1);
-            border-radius: 2px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         /* Features Section */
         .features {
-            background-color: #0f1329;
+            background-color: #0f0f23;
         }
         
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 30px;
             margin-bottom: 30px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             height: 100%;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .feature-card::before {
@@ -316,11 +313,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 5px;
             background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
         }
         
         .feature-card:hover {
@@ -328,61 +322,70 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
-        .feature-card:hover::before {
-            opacity: 0.1;
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
         
-        .feature-icon {
-            font-size: 3rem;
+        .icon-1 { background: var(--gradient-1); }
+        .icon-2 { background: var(--gradient-2); }
+        .icon-3 { background: var(--gradient-3); }
+        .icon-4 { background: var(--gradient-4); }
+        .icon-5 { background: var(--gradient-5); }
+        .icon-6 { background: var(--gradient-6); }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            display: inline-block;
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-        
-        .feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-        }
-        
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://files.catbox.moe/x9mubn.jpeg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: -1;
-        }
-        
-        .stat-item {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
         .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 10px;
             background: var(--gradient-1);
             -webkit-background-clip: text;
@@ -391,33 +394,37 @@
         }
         
         .stat-label {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         /* Team Section */
         .team {
-            background-color: #0f1329;
+            background-color: #0f0f23;
         }
         
-        .team-member {
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
             transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .team-member:hover {
+        .team-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
         .member-img-container {
             position: relative;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border-radius: 50%;
-            width: 180px;
-            height: 180px;
+            width: 150px;
+            height: 150px;
             margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
             border: 4px solid transparent;
             background: var(--gradient-1);
             padding: 4px;
@@ -428,44 +435,42 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #0f1329;
+            border: 4px solid #0f0f23;
         }
         
         .member-name {
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 5px;
-            color: var(--text-color);
         }
         
         .member-role {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--primary);
+            font-weight: 500;
         }
         
         /* Developer Section */
         .developer {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
         }
         
         .developer-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             max-width: 800px;
             margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .developer-img-container {
             position: relative;
-            margin-bottom: 30px;
-            overflow: hidden;
-            border-radius: 50%;
             width: 200px;
             height: 200px;
             margin: 0 auto 30px;
+            border-radius: 50%;
+            overflow: hidden;
             border: 4px solid transparent;
             background: var(--gradient-1);
             padding: 4px;
@@ -476,7 +481,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #0a0e27;
+            border: 4px solid #1a1a3e;
         }
         
         .developer-name {
@@ -491,12 +496,13 @@
         
         .developer-role {
             font-size: 1.2rem;
-            color: var(--primary-color);
+            color: var(--primary);
             margin-bottom: 20px;
+            font-weight: 500;
         }
         
         .developer-bio {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 30px;
             line-height: 1.6;
         }
@@ -506,13 +512,12 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 20px;
         }
         
         .skill-badge {
             background: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            padding: 8px 20px;
+            color: var(--light);
+            padding: 8px 16px;
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 500;
@@ -527,18 +532,17 @@
         
         /* Contact Section */
         .contact {
-            background-color: #0f1329;
+            background-color: #0f0f23;
         }
         
         .contact-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 30px;
             margin-bottom: 30px;
+            height: 100%;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 100%;
         }
         
         .contact-card:hover {
@@ -547,19 +551,25 @@
         }
         
         .contact-icon {
-            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 20px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.5rem;
         }
+        
+        .contact-icon-1 { background: var(--gradient-1); }
+        .contact-icon-2 { background: var(--gradient-2); }
+        .contact-icon-3 { background: var(--gradient-3); }
+        .contact-icon-4 { background: var(--gradient-4); }
         
         .contact-title {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: var(--text-color);
         }
         
         .contact-info {
@@ -568,7 +578,7 @@
         }
         
         .contact-link {
-            color: var(--primary-color);
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
@@ -577,7 +587,7 @@
         }
         
         .contact-link:hover {
-            color: var(--secondary-color);
+            color: var(--secondary);
             transform: translateX(5px);
         }
         
@@ -587,24 +597,8 @@
         
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
             padding: 60px 0 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://files.catbox.moe/e6eu1t.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: -1;
         }
         
         .footer-logo {
@@ -618,7 +612,7 @@
             height: 50px;
             border-radius: 50%;
             margin-right: 15px;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--primary);
         }
         
         .footer-logo h3 {
@@ -655,7 +649,7 @@
         }
         
         .footer-links a:hover {
-            color: var(--primary-color);
+            color: var(--primary);
             transform: translateX(5px);
         }
         
@@ -677,13 +671,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-color);
+            color: var(--light);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .social-icon:hover {
-            background: var(--primary-color);
+            background: var(--primary);
             transform: translateY(-5px);
         }
         
@@ -724,11 +718,6 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -766,23 +755,30 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+        
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="hero-content" data-aos="fade-right">
-                        <div class="hero-img-container">
-                            <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent" class="hero-img">
+                        <div class="hero-badge">🚀 Bot WhatsApp Terbaik</div>
+                        <h1 class="hero-title">Nime <span>Assistent</span></h1>
+                        <p class="hero-subtitle">Bot WhatsApp dengan 422+ fitur menarik untuk memenuhi kebutuhan digital Anda</p>
+                        <div class="hero-buttons">
+                            <a href="#features" class="btn-hero btn-primary">
+                                <i class="fas fa-rocket me-2"></i> Jelajahi Fitur
+                            </a>
+                            <a href="#contact" class="btn-hero btn-outline">
+                                <i class="fas fa-comments me-2"></i> Hubungi Kami
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="hero-content" data-aos="fade-left">
-                        <h1 class="hero-title">Nime - Assistent</h1>
-                        <p class="hero-subtitle">Bot WhatsApp dengan 422+ fitur menarik untuk memenuhi kebutuhan digital Anda</p>
-                        <div class="hero-buttons">
-                            <a href="#features" class="btn-custom">Jelajahi Fitur</a>
-                            <a href="#contact" class="btn-custom btn-outline-custom"><span>Hubungi Kami</span></a>
-                        </div>
+                    <div class="hero-image" data-aos="fade-left">
+                        <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent" class="hero-img">
                     </div>
                 </div>
             </div>
@@ -792,12 +788,12 @@
     <!-- Features Section -->
     <section id="features" class="section features">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Fitur Unggulan</h2>
+            <h2 class="section-title" data-aos="fade-up">Fitur <span>Unggulan</span></h2>
             <div class="row">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-download"></i>
+                        <div class="feature-icon icon-1">
+                            <i class="fas fa-download text-white"></i>
                         </div>
                         <h3 class="feature-title">Downloader</h3>
                         <p class="feature-description">Unduh video, musik, dan gambar dari berbagai platform seperti YouTube, Instagram, TikTok, dan lainnya dengan mudah.</p>
@@ -805,8 +801,8 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
+                        <div class="feature-icon icon-2">
+                            <i class="fas fa-robot text-white"></i>
                         </div>
                         <h3 class="feature-title">AI Assistant</h3>
                         <p class="feature-description">Asisten AI cerdas yang dapat membantu menjawab pertanyaan, membuat teks, dan memberikan rekomendasi.</p>
@@ -814,8 +810,8 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-image"></i>
+                        <div class="feature-icon icon-3">
+                            <i class="fas fa-image text-white"></i>
                         </div>
                         <h3 class="feature-title">Edit Foto</h3>
                         <p class="feature-description">Edit foto dengan berbagai efek, filter, dan tools editing langsung melalui WhatsApp.</p>
@@ -823,8 +819,8 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-search"></i>
+                        <div class="feature-icon icon-4">
+                            <i class="fas fa-search text-white"></i>
                         </div>
                         <h3 class="feature-title">Pencarian</h3>
                         <p class="feature-description">Cari informasi, gambar, berita, dan konten lainnya langsung melalui WhatsApp.</p>
@@ -832,8 +828,8 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-tools"></i>
+                        <div class="feature-icon icon-5">
+                            <i class="fas fa-tools text-white"></i>
                         </div>
                         <h3 class="feature-title">Tools</h3>
                         <p class="feature-description">Berbagai tools berguna seperti kalkulator, konverter, QR code generator, dan lainnya.</p>
@@ -841,8 +837,8 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-sticky-note"></i>
+                        <div class="feature-icon icon-6">
+                            <i class="fas fa-sticky-note text-white"></i>
                         </div>
                         <h3 class="feature-title">Stiker</h3>
                         <p class="feature-description">Buat stiker kustom dari gambar atau video, dan akses ribuan stiker menarik.</p>
@@ -855,28 +851,40 @@
     <!-- Stats Section -->
     <section id="stats" class="section stats">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Statistik Bot</h2>
+            <h2 class="section-title" data-aos="fade-up">Statistik <span>Bot</span></h2>
             <div class="row">
                 <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="stat-item">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
                         <div class="stat-number" data-count="422">0</div>
                         <div class="stat-label">Fitur Tersedia</div>
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="stat-item">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
                         <div class="stat-number" data-count="10000">0</div>
                         <div class="stat-label">Pengguna Aktif</div>
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="stat-item">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
                         <div class="stat-number" data-count="100">0</div>
                         <div class="stat-label">Grup Terdaftar</div>
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="stat-item">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
                         <div class="stat-number">24/7</div>
                         <div class="stat-label">Online</div>
                     </div>
@@ -888,10 +896,10 @@
     <!-- Team Section -->
     <section id="team" class="section team">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Tim Pengembang</h2>
+            <h2 class="section-title" data-aos="fade-up">Tim <span>Pengembang</span></h2>
             <div class="row">
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="member-img">
                         </div>
@@ -900,7 +908,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://files.catbox.moe/40uk3x.jpg" alt="Kayzu" class="member-img">
                         </div>
@@ -909,7 +917,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://g.top4top.io/p_3568n59kf1.jpg" alt="Kyrie" class="member-img">
                         </div>
@@ -918,7 +926,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://j.top4top.io/p_3568u2px71.jpg" alt="Hazel" class="member-img">
                         </div>
@@ -927,7 +935,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://g.top4top.io/p_3568jjng61.jpg" alt="Rey" class="member-img">
                         </div>
@@ -936,7 +944,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="600">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://files.catbox.moe/wsmg1r.jpeg" alt="Iqbalz" class="member-img">
                         </div>
@@ -945,7 +953,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="700">
-                    <div class="team-member">
+                    <div class="team-card">
                         <div class="member-img-container">
                             <img src="https://j.top4top.io/p_3568q4m821.jpg" alt="FauzialifatahOFFC" class="member-img">
                         </div>
@@ -960,7 +968,7 @@
     <!-- Developer Section -->
     <section id="developer" class="section developer">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Tentang Founder</h2>
+            <h2 class="section-title" data-aos="fade-up">Tentang <span>Founder</span></h2>
             <div class="row justify-content-center">
                 <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="developer-card">
@@ -986,12 +994,12 @@
     <!-- Contact Section -->
     <section id="contact" class="section contact">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Hubungi Kami</h2>
+            <h2 class="section-title" data-aos="fade-up">Hubungi <span>Kami</span></h2>
             <div class="row">
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-user"></i>
+                        <div class="contact-icon contact-icon-1">
+                            <i class="fas fa-user text-white"></i>
                         </div>
                         <h3 class="contact-title">Owner</h3>
                         <p class="contact-info">Hubungi owner untuk informasi lebih lanjut</p>
@@ -1002,8 +1010,8 @@
                 </div>
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-robot"></i>
+                        <div class="contact-icon contact-icon-2">
+                            <i class="fas fa-robot text-white"></i>
                         </div>
                         <h3 class="contact-title">Bot</h3>
                         <p class="contact-info">Tambahkan bot ke kontak Anda</p>
@@ -1014,8 +1022,8 @@
                 </div>
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-users"></i>
+                        <div class="contact-icon contact-icon-3">
+                            <i class="fas fa-users text-white"></i>
                         </div>
                         <h3 class="contact-title">Grup WhatsApp</h3>
                         <p class="contact-info">Bergabung dengan komunitas kami</p>
@@ -1026,8 +1034,8 @@
                 </div>
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-broadcast-tower"></i>
+                        <div class="contact-icon contact-icon-4">
+                            <i class="fas fa-broadcast-tower text-white"></i>
                         </div>
                         <h3 class="contact-title">Saluran WhatsApp</h3>
                         <p class="contact-info">Ikuti saluran kami untuk update terbaru</p>
@@ -1092,13 +1100,6 @@
             once: true
         });
 
-        // Preloader
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.querySelector('.preloader').classList.add('fade-out');
-            }, 1000);
-        });
-
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1114,10 +1115,10 @@
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.backgroundColor = 'rgba(10, 14, 39, 0.95)';
+                navbar.style.backgroundColor = 'rgba(15, 15, 35, 0.95)';
                 navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
             } else {
-                navbar.style.backgroundColor = 'rgba(10, 14, 39, 0.8)';
+                navbar.style.backgroundColor = 'rgba(15, 15, 35, 0.8)';
                 navbar.style.boxShadow = 'none';
             }
         });
