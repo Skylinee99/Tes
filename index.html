@@ -6,17 +6,25 @@
     <title>Nime - Assistent | WhatsApp Bot Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
         :root {
             --primary-color: #25D366;
             --secondary-color: #128C7E;
-            --dark-color: #075E54;
-            --light-color: #DCF8C6;
-            --text-color: #333;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-light: #e0e0e0;
-            --text-muted: #9e9e9e;
+            --accent-color: #075E54;
+            --text-color: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a0e27;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
         }
         
         * {
@@ -26,53 +34,80 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-light);
-            background-color: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-dark);
             overflow-x: hidden;
         }
         
-        .theme-toggle {
+        /* Preloader */
+        .preloader {
             position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 1001;
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
             display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
         
-        .theme-toggle:hover {
-            transform: scale(1.1);
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
         
-        .theme-toggle i {
-            color: var(--primary-color);
-            font-size: 1.5rem;
+        .loader {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
         }
         
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* Navigation */
         .navbar {
-            background-color: rgba(18, 18, 18, 0.95);
+            background-color: rgba(10, 14, 39, 0.8);
             backdrop-filter: blur(10px);
-            padding: 1rem 0;
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .navbar-brand {
-            color: white;
-            font-weight: bold;
+            color: var(--text-color) !important;
+            font-weight: 700;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
         }
         
         .navbar-brand img {
@@ -80,128 +115,264 @@
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
+            border: 2px solid var(--primary-color);
         }
         
         .nav-link {
-            color: white !important;
+            color: var(--text-color) !important;
             margin: 0 10px;
+            font-weight: 500;
+            position: relative;
             transition: all 0.3s ease;
         }
         
-        .nav-link:hover {
-            color: var(--primary-color) !important;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
         }
         
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            border: none;
+            color: var(--text-color);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--dark-color), var(--secondary-color));
-            padding: 150px 0 80px;
-            text-align: center;
-            color: white;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://files.catbox.moe/e6eu1t.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
         }
         
-        .hero p {
-            font-size: 1.2rem;
+        .hero-content {
+            padding: 120px 0 80px;
+        }
+        
+        .hero-img-container {
+            position: relative;
             margin-bottom: 30px;
-            animation: fadeInUp 1s ease;
         }
         
         .hero-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
-            margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
+            width: 250px;
+            height: 250px;
+            border-radius: 30px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
         }
         
-        .btn-primary-custom {
-            background-color: var(--primary-color);
-            color: white;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn-custom {
             padding: 12px 30px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
             border: none;
             margin: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
-        .btn-primary-custom:hover {
-            background-color: var(--secondary-color);
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline-custom::before {
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-outline-custom:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .btn-outline-custom span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Section Styles */
         .section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--text-light);
+            font-weight: 700;
             position: relative;
+            color: var(--text-color);
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: var(--primary-color);
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: #0f1329;
         }
         
         .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 0.1;
         }
         
         .feature-icon {
             font-size: 3rem;
-            color: var(--primary-color);
             margin-bottom: 20px;
+            display: inline-block;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .feature-title {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 15px;
-            color: var(--text-light);
+            color: var(--text-color);
         }
         
         .feature-description {
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 20px;
         }
         
+        /* Stats Section */
         .stats {
-            background-color: var(--card-bg);
-            color: white;
-            padding: 80px 0;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://files.catbox.moe/x9mubn.jpeg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -1;
         }
         
         .stat-item {
@@ -210,72 +381,112 @@
         }
         
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 10px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .stat-label {
             font-size: 1.2rem;
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: #0f1329;
         }
         
         .team-member {
             text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 5px solid var(--primary-color);
+            margin-bottom: 40px;
             transition: all 0.3s ease;
         }
         
-        .team-member:hover img {
-            transform: scale(1.05);
-            border-color: var(--secondary-color);
+        .team-member:hover {
+            transform: translateY(-10px);
         }
         
-        .team-member h4 {
+        .member-img-container {
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border: 4px solid transparent;
+            background: var(--gradient-1);
+            padding: 4px;
+        }
+        
+        .member-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0f1329;
+        }
+        
+        .member-name {
             font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 5px;
-            color: var(--text-light);
+            color: var(--text-color);
         }
         
-        .team-member p {
-            color: var(--text-muted);
+        .member-role {
+            color: rgba(255, 255, 255, 0.7);
         }
         
-        .developer-section {
-            background-color: var(--card-bg);
-            padding: 80px 0;
+        /* Developer Section */
+        .developer {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
         }
         
         .developer-card {
-            background-color: var(--bg-color);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .developer-img-container {
+            position: relative;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border: 4px solid transparent;
+            background: var(--gradient-1);
+            padding: 4px;
         }
         
         .developer-img {
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            margin: 0 auto 20px;
-            border: 5px solid var(--primary-color);
+            object-fit: cover;
+            border: 4px solid #0a0e27;
         }
         
         .developer-name {
-            font-size: 1.8rem;
-            font-weight: bold;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 10px;
-            color: var(--text-light);
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .developer-role {
@@ -285,8 +496,9 @@
         }
         
         .developer-bio {
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
         
         .developer-skills {
@@ -298,18 +510,101 @@
         }
         
         .skill-badge {
-            background-color: var(--card-bg);
-            color: var(--text-light);
-            padding: 5px 15px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            padding: 8px 20px;
+            border-radius: 50px;
             font-size: 0.9rem;
-            border: 1px solid var(--primary-color);
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
         
+        .skill-badge:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #0f1329;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .contact-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .contact-link i {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
         .footer {
-            background-color: var(--card-bg);
-            color: white;
-            padding: 50px 0 20px;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            padding: 60px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://files.catbox.moe/e6eu1t.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -1;
         }
         
         .footer-logo {
@@ -319,10 +614,26 @@
         }
         
         .footer-logo img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
         
         .footer-links {
@@ -331,191 +642,71 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .footer-links a {
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
+            font-weight: 500;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
         }
         
         .footer-links a:hover {
             color: var(--primary-color);
-            padding-left: 5px;
+            transform: translateX(5px);
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
         }
         
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 30px;
         }
         
         .social-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary-color);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--text-color);
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .social-icon:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-3px);
+            background: var(--primary-color);
+            transform: translateY(-5px);
         }
         
         .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.5);
         }
         
-        .thumbnail-section {
-            padding: 80px 0;
-            background-color: var(--card-bg);
+        .copyright i {
+            color: #ff4757;
         }
         
-        .thumbnail-img {
-            width: 100%;
-            max-width: 800px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin: 0 auto;
-            display: block;
-        }
-        
-        .group-section {
-            padding: 80px 0;
-        }
-        
-        .group-img {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin: 0 auto;
-            display: block;
-        }
-        
-        .contact-section {
-            background-color: var(--card-bg);
-            padding: 80px 0;
-        }
-        
-        .contact-card {
-            background-color: var(--bg-color);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .contact-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .contact-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--text-light);
-        }
-        
-        .contact-info {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-        
-        .contact-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-        
-        .light-theme {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-light: #333333;
-            --text-muted: #666666;
-        }
-        
-        .light-theme .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .light-theme .navbar-brand {
-            color: var(--dark-color);
-        }
-        
-        .light-theme .nav-link {
-            color: var(--dark-color) !important;
-        }
-        
-        .light-theme .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-        
-        .light-theme .footer {
-            background-color: var(--dark-color);
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-            }
-        }
-        
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
             .section-title {
@@ -523,26 +714,30 @@
             }
             
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .developer-card {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon" id="themeIcon"></i>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#home">
                 <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent">
                 Nime - Assistent
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -572,20 +767,34 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent" class="hero-img">
-            <h1>Nime - Assistent</h1>
-            <p>Bot WhatsApp dengan 422+ fitur menarik untuk memenuhi kebutuhan digital Anda</p>
-            <a href="#features" class="btn-primary-custom">Jelajahi Fitur</a>
-            <a href="#contact" class="btn-primary-custom">Hubungi Kami</a>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content" data-aos="fade-right">
+                        <div class="hero-img-container">
+                            <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent" class="hero-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-content" data-aos="fade-left">
+                        <h1 class="hero-title">Nime - Assistent</h1>
+                        <p class="hero-subtitle">Bot WhatsApp dengan 422+ fitur menarik untuk memenuhi kebutuhan digital Anda</p>
+                        <div class="hero-buttons">
+                            <a href="#features" class="btn-custom">Jelajahi Fitur</a>
+                            <a href="#contact" class="btn-custom btn-outline-custom"><span>Hubungi Kami</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="section">
+    <section id="features" class="section features">
         <div class="container">
-            <h2 class="section-title">Fitur Unggulan</h2>
+            <h2 class="section-title" data-aos="fade-up">Fitur Unggulan</h2>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-download"></i>
@@ -594,7 +803,7 @@
                         <p class="feature-description">Unduh video, musik, dan gambar dari berbagai platform seperti YouTube, Instagram, TikTok, dan lainnya dengan mudah.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-robot"></i>
@@ -603,7 +812,7 @@
                         <p class="feature-description">Asisten AI cerdas yang dapat membantu menjawab pertanyaan, membuat teks, dan memberikan rekomendasi.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-image"></i>
@@ -612,7 +821,7 @@
                         <p class="feature-description">Edit foto dengan berbagai efek, filter, dan tools editing langsung melalui WhatsApp.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-search"></i>
@@ -621,7 +830,7 @@
                         <p class="feature-description">Cari informasi, gambar, berita, dan konten lainnya langsung melalui WhatsApp.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-tools"></i>
@@ -630,7 +839,7 @@
                         <p class="feature-description">Berbagai tools berguna seperti kalkulator, konverter, QR code generator, dan lainnya.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-sticky-note"></i>
@@ -644,29 +853,29 @@
     </section>
 
     <!-- Stats Section -->
-    <section id="stats" class="stats">
+    <section id="stats" class="section stats">
         <div class="container">
-            <h2 class="section-title text-white">Statistik Bot</h2>
+            <h2 class="section-title" data-aos="fade-up">Statistik Bot</h2>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
                     <div class="stat-item">
-                        <div class="stat-number">422+</div>
+                        <div class="stat-number" data-count="422">0</div>
                         <div class="stat-label">Fitur Tersedia</div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
                     <div class="stat-item">
-                        <div class="stat-number">10K+</div>
+                        <div class="stat-number" data-count="10000">0</div>
                         <div class="stat-label">Pengguna Aktif</div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
                     <div class="stat-item">
-                        <div class="stat-number">100+</div>
+                        <div class="stat-number" data-count="100">0</div>
                         <div class="stat-label">Grup Terdaftar</div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
                     <div class="stat-item">
                         <div class="stat-number">24/7</div>
                         <div class="stat-label">Online</div>
@@ -676,66 +885,72 @@
         </div>
     </section>
 
-    <!-- Thumbnail Section -->
-    <section class="thumbnail-section">
-        <div class="container">
-            <h2 class="section-title">Tampilan Bot</h2>
-            <img src="https://files.catbox.moe/e6eu1t.jpg" alt="Thumbnail Bot" class="thumbnail-img">
-        </div>
-    </section>
-
     <!-- Team Section -->
-    <section id="team" class="section">
+    <section id="team" class="section team">
         <div class="container">
-            <h2 class="section-title">Tim Pengembang</h2>
+            <h2 class="section-title" data-aos="fade-up">Tim Pengembang</h2>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-member">
-                        <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura">
-                        <h4>Zura</h4>
-                        <p>Founder & Lead Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="member-img">
+                        </div>
+                        <h4 class="member-name">Zura</h4>
+                        <p class="member-role">Founder & Lead Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-member">
-                        <img src="https://files.catbox.moe/40uk3x.jpg" alt="Kayzu">
-                        <h4>Kayzu</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://files.catbox.moe/40uk3x.jpg" alt="Kayzu" class="member-img">
+                        </div>
+                        <h4 class="member-name">Kayzu</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-member">
-                        <img src="https://g.top4top.io/p_3568n59kf1.jpg" alt="Kyrie">
-                        <h4>Kyrie</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://g.top4top.io/p_3568n59kf1.jpg" alt="Kyrie" class="member-img">
+                        </div>
+                        <h4 class="member-name">Kyrie</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="team-member">
-                        <img src="https://j.top4top.io/p_3568u2px71.jpg" alt="Hazel">
-                        <h4>Hazel</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://j.top4top.io/p_3568u2px71.jpg" alt="Hazel" class="member-img">
+                        </div>
+                        <h4 class="member-name">Hazel</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
                     <div class="team-member">
-                        <img src="https://g.top4top.io/p_3568jjng61.jpg" alt="Rey">
-                        <h4>Rey</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://g.top4top.io/p_3568jjng61.jpg" alt="Rey" class="member-img">
+                        </div>
+                        <h4 class="member-name">Rey</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="600">
                     <div class="team-member">
-                        <img src="https://files.catbox.moe/wsmg1r.jpeg" alt="Iqbalz">
-                        <h4>Iqbalz</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://files.catbox.moe/wsmg1r.jpeg" alt="Iqbalz" class="member-img">
+                        </div>
+                        <h4 class="member-name">Iqbalz</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="700">
                     <div class="team-member">
-                        <img src="https://j.top4top.io/p_3568q4m821.jpg" alt="FauzialifatahOFFC">
-                        <h4>FauzialifatahOFFC</h4>
-                        <p>Developer</p>
+                        <div class="member-img-container">
+                            <img src="https://j.top4top.io/p_3568q4m821.jpg" alt="FauzialifatahOFFC" class="member-img">
+                        </div>
+                        <h4 class="member-name">FauzialifatahOFFC</h4>
+                        <p class="member-role">Developer</p>
                     </div>
                 </div>
             </div>
@@ -743,13 +958,15 @@
     </section>
 
     <!-- Developer Section -->
-    <section id="developer" class="developer-section">
+    <section id="developer" class="section developer">
         <div class="container">
-            <h2 class="section-title">Tentang Founder</h2>
+            <h2 class="section-title" data-aos="fade-up">Tentang Founder</h2>
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="developer-card">
-                        <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="developer-img">
+                        <div class="developer-img-container">
+                            <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="developer-img">
+                        </div>
                         <h3 class="developer-name">Zura</h3>
                         <p class="developer-role">Founder & Lead Developer</p>
                         <p class="developer-bio">Zura adalah seorang developer berbakat dengan keahlian khusus dalam JavaScript. Dengan visi untuk menciptakan solusi digital yang inovatif, ia mendirikan Nime - Assisten sebagai bot WhatsApp serbaguna dengan berbagai fitur untuk memenuhi kebutuhan pengguna.</p>
@@ -767,11 +984,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
+    <section id="contact" class="section contact">
         <div class="container">
-            <h2 class="section-title">Hubungi Kami</h2>
+            <h2 class="section-title" data-aos="fade-up">Hubungi Kami</h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fas fa-user"></i>
@@ -783,7 +1000,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fas fa-robot"></i>
@@ -795,7 +1012,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fas fa-users"></i>
@@ -807,7 +1024,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fas fa-broadcast-tower"></i>
@@ -823,28 +1040,16 @@
         </div>
     </section>
 
-    <!-- Group Section -->
-    <section class="group-section">
-        <div class="container">
-            <h2 class="section-title">Bergabung dengan Komunitas Kami</h2>
-            <p class="text-center mb-5">Dapatkan update terbaru, bantuan, dan diskusi dengan pengguna lain di grup WhatsApp kami</p>
-            <img src="https://files.catbox.moe/x9mubn.jpeg" alt="Grup WhatsApp" class="group-img">
-            <div class="text-center mt-4">
-                <a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi" class="btn-primary-custom" target="_blank">Bergabung Sekarang</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-4" data-aos="fade-up">
                     <div class="footer-logo">
                         <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent">
                         <h3>Nime - Assistent</h3>
                     </div>
-                    <p>Bot WhatsApp serbaguna dengan 422+ fitur untuk memenuhi kebutuhan digital Anda.</p>
+                    <p class="footer-description">Bot WhatsApp serbaguna dengan 422+ fitur untuk memenuhi kebutuhan digital Anda.</p>
                     <div class="social-icons">
                         <a href="https://wa.me/6285134116039" class="social-icon"><i class="fab fa-whatsapp"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
@@ -852,59 +1057,46 @@
                         <a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q" class="social-icon"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <h4>Link Cepat</h4>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="mb-4">Link Cepat</h4>
                     <ul class="footer-links">
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#features">Fitur</a></li>
-                        <li><a href="#stats">Statistik</a></li>
-                        <li><a href="#team">Tim</a></li>
-                        <li><a href="#developer">Pengembang</a></li>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Fitur</a></li>
+                        <li><a href="#stats"><i class="fas fa-chevron-right"></i> Statistik</a></li>
+                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Tim</a></li>
+                        <li><a href="#developer"><i class="fas fa-chevron-right"></i> Pengembang</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h4>Kontak</h4>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="mb-4">Kontak</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/6285216506762">Owner: +62 852-1650-6762</a></li>
-                        <li><a href="https://wa.me/6285134116039">Bot: +62 851-3411-6039</a></li>
-                        <li><a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi">Grup WhatsApp</a></li>
-                        <li><a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q">Saluran WhatsApp</a></li>
+                        <li><a href="https://wa.me/6285216506762"><i class="fas fa-phone"></i> Owner: +62 852-1650-6762</a></li>
+                        <li><a href="https://wa.me/6285134116039"><i class="fas fa-robot"></i> Bot: +62 851-3411-6039</a></li>
+                        <li><a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi"><i class="fas fa-users"></i> Grup WhatsApp</a></li>
+                        <li><a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q"><i class="fas fa-broadcast-tower"></i> Saluran WhatsApp</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Nime - Assisten. All rights reserved. Made with <i class="fas fa-heart" style="color: #ff4757;"></i> by Zura & Team</p>
+                <p>&copy; 2023 Nime - Assisten. All rights reserved. Made with <i class="fas fa-heart"></i> by Zura & Team</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const body = document.body;
-        
-        // Check for saved theme preference or default to dark
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        if (currentTheme === 'light') {
-            body.classList.add('light-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-theme');
-            
-            if (body.classList.contains('light-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
-            }
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.preloader').classList.add('fade-out');
+            }, 1000);
         });
 
         // Smooth scrolling for navigation links
@@ -922,36 +1114,34 @@
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.backgroundColor = body.classList.contains('light-theme') 
-                    ? 'rgba(255, 255, 255, 0.95)' 
-                    : 'rgba(18, 18, 18, 0.95)';
+                navbar.style.backgroundColor = 'rgba(10, 14, 39, 0.95)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
             } else {
-                navbar.style.backgroundColor = body.classList.contains('light-theme') 
-                    ? 'rgba(255, 255, 255, 0.95)' 
-                    : 'rgba(18, 18, 18, 0.95)';
+                navbar.style.backgroundColor = 'rgba(10, 14, 39, 0.8)';
+                navbar.style.boxShadow = 'none';
             }
         });
 
         // Animate stats on scroll
         const statsSection = document.querySelector('.stats');
-        const statNumbers = document.querySelectorAll('.stat-number');
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
         let animated = false;
 
         function animateStats() {
             if (!animated && isInViewport(statsSection)) {
                 animated = true;
                 statNumbers.forEach(stat => {
-                    const target = parseInt(stat.innerText);
+                    const target = parseInt(stat.getAttribute('data-count'));
                     let count = 0;
                     const increment = target / 100;
                     
                     const updateCount = () => {
                         if (count < target) {
                             count += increment;
-                            stat.innerText = Math.ceil(count) + (stat.innerText.includes('+') ? '+' : '');
+                            stat.innerText = Math.ceil(count).toLocaleString();
                             setTimeout(updateCount, 20);
                         } else {
-                            stat.innerText = target + (stat.innerText.includes('+') ? '+' : '');
+                            stat.innerText = target.toLocaleString();
                         }
                     };
                     
