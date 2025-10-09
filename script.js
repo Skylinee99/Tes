@@ -4,13 +4,6 @@ AOS.init({
     once: true
 });
 
-// Preloader
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        document.querySelector('.preloader').classList.add('fade-out');
-    }, 1000);
-});
-
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
