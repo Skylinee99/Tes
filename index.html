@@ -3,171 +3,1003 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nime - Assistent | WhatsApp Bot Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Nime - Assistant | Bot WhatsApp Serbaguna</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- Pengaturan Global & Variabel Warna --- */
+        :root {
+            --primary-color: #6c5ce7; /* Ungu */
+            --secondary-color: #a29bfe; /* Ungu Muda */
+            --accent-color: #00d2d3;   /* Cyan */
+            --dark-bg: #1e1e2e;
+            --card-bg: #2a2a3e;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c8;
+            --developer-color: #ff6b9d; /* Pink untuk developer */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- Header & Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(30,30,46,0.9) 0%, rgba(42,42,62,0.9) 100%), url('https://source.unsplash.com/random/1600x900/?technology,abstract') center/cover;
+            text-align: center;
+            padding: 100px 0;
+            border-bottom: 2px solid var(--card-bg);
+            position: relative;
+        }
+
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--text-primary);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        /* --- Animated Counter --- */
+        .counter-section {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 1;
+        }
+        .counter-item h3 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        .counter-item p {
+            color: var(--text-secondary);
+        }
+
+        /* --- Kenapa Pilih Kami Section --- */
+        #why-us {
+            background-color: var(--card-bg);
+        }
+        #why-us h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .why-us-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .why-us-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .why-us-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* --- Fitur Section --- */
+        #fitur {
+            text-align: center;
+        }
+        #fitur h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        #fitur p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #3a3a4e;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Testimoni Section --- */
+        #testimoni {
+            background-color: var(--card-bg);
+        }
+        #testimoni h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        .testimoni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .testimoni-card {
+            background-color: var(--dark-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+        .testimoni-card p {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        .testimoni-card h4 {
+            color: var(--primary-color);
+        }
+        
+        /* --- Screenshot Gallery --- */
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+        .screenshot-item {
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .screenshot-item img {
+            width: 100%;
+            display: block;
+        }
+        .screenshot-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal for Screenshots */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            margin: 10% auto;
+            display: block;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover { color: var(--accent-color); }
+
+        /* --- FAQ Section --- */
+        #faq {
+            text-align: center;
+        }
+        #faq h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background-color: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .faq-question {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .faq-question:hover {
+            background-color: #3a3a4e;
+        }
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            padding: 0 20px;
+            color: var(--text-secondary);
+        }
+        .faq-answer.show {
+            max-height: 500px; /* Arbitrary large value */
+            padding: 0 20px 20px 20px;
+        }
+
+        /* --- Harga Section --- */
+        #harga {
+            background-color: var(--card-bg);
+        }
+        #harga h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background-color: var(--dark-bg);
+            border: 2px solid #3a3a4e;
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        .pricing-card.best-value {
+            border-color: var(--accent-color);
+        }
+
+        .pricing-card.best-value::before {
+            content: "Lebih Hemat!";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 20px 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        .pricing-card ul li i {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        /* --- Cara Pakai Section --- */
+        #cara-pakai {
+            text-align: center;
+        }
+        #cara-pakai h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .step {
+            flex-basis: 200px;
+        }
+        .step-number {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px auto;
+        }
+        .step p {
+            color: var(--text-secondary);
+        }
+
+        /* --- Developer Section --- */
+        #developer {
+            background-color: var(--card-bg);
+            text-align: center;
+        }
+        #developer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .developer-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .developer-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--developer-color);
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+        }
+        .developer-info h3 {
+            font-size: 2rem;
+            color: var(--developer-color);
+            margin-bottom: 10px;
+        }
+        .developer-info p {
+            color: var(--text-secondary);
+            max-width: 500px;
+        }
+
+        /* --- Kontak Section --- */
+        #kontak h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .contact-item {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        .contact-item a {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .contact-item a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Sticky CTA Button --- */
+        .sticky-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .sticky-cta.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .sticky-cta a {
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 210, 211, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 210, 211, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 210, 211, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 210, 211, 0); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--card-bg);
+            color: var(--text-secondary);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            section { padding: 60px 0; }
+            h2 { font-size: 2rem !important; }
+            .pricing-card { max-width: 100%; }
+            .counter-section { flex-direction: column; gap: 20px; }
+            .modal-content { width: 95%; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#home">
-                <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent">
-                Nime - Assistent
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Fitur</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#stats">Statistik</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#team">Tim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#developer">Pengembang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Kontak</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#video-album">Video Album</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://nimeeassistent.vercel.app/admin" class="nav-link admin-link" target="_blank">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
-        
+    <!-- ==================== HERO SECTION ==================== -->
+    <header class="hero">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="hero-content" data-aos="fade-right">
-                        <div class="hero-badge">Bot WhatsApp Terbaik</div>
-                        <h1 class="hero-title">Nime <span>Assistent</span></h1>
-                        <p class="hero-subtitle">Bot WhatsApp dengan 422+ fitur menarik untuk memenuhi kebutuhan digital Anda</p>
-                        <div class="hero-buttons">
-                            <a href="#features" class="btn-hero btn-primary">
-                                <i class="fas fa-rocket me-2"></i> Jelajahi Fitur
-                            </a>
-                            <a href="#contact" class="btn-hero btn-outline">
-                                <i class="fas fa-comments me-2"></i> Hubungi Kami
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="hero-image" data-aos="fade-left">
-                        <div class="hero-img-container">
-                            <video class="hero-video" id="heroVideo" autoplay loop muted playsinline>
-                                <source src="https://i.top4top.io/m_3568oncss1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay"></div>
-                            <div class="play-button" id="playButton">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistant Profile" class="hero-logo">
+            <h1>Nime - Assistant</h1>
+            <p>Bot WhatsApp serbaguna dengan 422+ fitur canggih. Tingkatkan pengalaman chat Anda dengan AI, download, stiker, dan ribuan fitur menarik lainnya!</p>
+            <a href="#harga" class="btn-primary">Lihat Harga & Sewa Sekarang</a>
+        </div>
+    </header>
+
+    <!-- ==================== COUNTER SECTION ==================== -->
+    <section class="container">
+        <div class="counter-section">
+            <div class="counter-item">
+                <h3 class="counter" data-target="422">0</h3>
+                <p>Total Fitur</p>
+            </div>
+            <div class="counter-item">
+                <h3 class="counter" data-target="200">0</h3>
+                <p>Member Grup</p>
+            </div>
+            <div class="counter-item">
+                <h3 class="counter" data-target="50">0</h3>
+                <p>Pengikut Channel</p>
             </div>
         </div>
     </section>
 
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="video-modal-content">
-            <div class="video-modal-header">
-                <h3 class="video-modal-title">Nime - Assistent Demo</h3>
-                <button class="video-modal-close" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="video-modal-body">
-                <video class="video-modal-video" id="modalVideo" controls>
-                    <source src="https://i.top4top.io/m_ <span class="notification-close"><i class="fas fa-times"></i></span>
-    </div>
-    </div>
-</div>
-
-    <!-- Video Album Section -->
-    <span class="notification-close"><i class="fas fa-times"></i>
-        <div class="video-actions-bar" data-aos="fade-up" data-aos-delay="100">
-                <div class="video-filter">
-                    <button class="filter-btn active" data-filter="all">Semua</button>
-                    <button class="filter-btn" data-filter="demo">Demo</button>
-                    <button class="filter-btn" data-filter="tutorial">Tutorial</button>
-                    <button class="filter-btn" data-filter="feature">Fitur</button>
+    <main>
+        <!-- ==================== KENAPA PILIH KAMI SECTION ==================== -->
+        <section id="why-us">
+            <div class="container">
+                <h2>Kenapa Harus Nime - Assistant?</h2>
+                <div class="why-us-grid">
+                    <div class="why-us-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Respons Cepat</h3>
+                        <p>Bot kami dioptimalkan untuk memberikan respons yang cepat dan akurat, kapan saja Anda butuhkan.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <i class="fas fa-shield-halved"></i>
+                        <h3>Aman & Terpercaya</h3>
+                        <p>Keamanan data dan privasi pengguna adalah prioritas utama kami. Gunakan bot dengan tenang.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <i class="fas fa-code-commit"></i>
+                        <h3>Update Berkala</h3>
+                        <p>Kami terus mengembangkan dan menambah fitur-fitur baru secara berkala untuk pengalaman terbaik.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>Support 24/7</h3>
+                        <p>Tim support kami siap membantu Anda jika mengalami kendala atau memiliki pertanyaan.</p>
+                    </div>
                 </div>
-                <button class="upload-btn" id="uploadVideoBtn">
-                    <i class="fas fa-upload"></i> Upload Video
-                </button>
             </div>
+        </section>
+
+        <!-- ==================== FITUR SECTION ==================== -->
+        <section id="fitur">
+            <div class="container">
+                <h2>Fitur Unggulan Kami</h2>
+                <p>Kami memiliki ratusan fitur yang siap membantu Anda. Berikut adalah beberapa kategori fitur unggulan dari Nime - Assistant.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-download"></i>
+                        <h3>Download Cepat</h3>
+                        <p>Unduh video, foto, musik dari berbagai platform seperti YouTube, TikTok, Instagram, dan lainnya dengan mudah dan cepat.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Kecerdasan Buatan (AI)</h3>
+                        <p>Interaksi dengan AI yang cerdas untuk menjawab pertanyaan, membuat teks, gambar, dan membantu tugas-tugas kreatif Anda.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-face-smile-beam"></i>
+                        <h3>Stiker & Meme</h3>
+                        <p>Cari, buat, dan kirim stiker atau meme lucu langsung dari WhatsApp. Jadikan obrolan grup Anda lebih hidup!</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users-gear"></i>
+                        <h3>Manajemen Grup</h3>
+                        <p>Kelola grup WhatsApp Anda dengan fitur-fitur seperti anti-link, welcome message, promosi/demote otomatis, dan masih banyak lagi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-gamepad"></i>
+                        <h3>Hiburan & Game</h3>
+                        <p>Mainkan game teka-teki, TTT, dan banyak lagi langsung di dalam chat. Juga tersedia fitur-fitur hiburan lainnya.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-tools"></i>
+                        <h3>Utilitas & Tools</h3>
+                        <p>Akses berbagai tools berguna seperti konversi PDF, penerjemah bahasa, pencarian informasi, dan tools produktivitas lainnya.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TESTIMONI & SCREENSHOT SECTION ==================== -->
+        <section id="testimoni">
+            <div class="container">
+                <h2>Apa Kata Mereka?</h2>
+                <div class="testimoni-grid">
+                    <div class="testimoni-card">
+                        <p>"Botnya sangat membantu untuk admin grup, fiturnya lengkap dan gampang dipakai. Recommended!"</p>
+                        <h4>- Ahmad, Admin Grup Komunitas</h4>
+                    </div>
+                    <div class="testimoni-card">
+                        <p>"Fitur downloadnya paling cepat yang pernah saya coba. Ga pake lama!"</p>
+                        <h4>- Siti, Pengguna Aktif</h4>
+                    </div>
+                    <div class="testimoni-card">
+                        <p>"Owner-nya ramah dan fast respon. Pas ada kendala langsung dibantu. Mantap!"</p>
+                        <h4>- Budi, Penyewa Bot</h4>
+                    </div>
+                </div>
+                
+                <h3 style="text-align:center; margin-top: 50px; color: var(--secondary-color);">Lihat Cuplikan Bot</h3>
+                <div class="screenshot-gallery">
+                    <!-- Ganti dengan link screenshot bot Anda jika ada -->
+                    <div class="screenshot-item"><img src="https://files.catbox.moe/k3w4o1.png" alt="Screenshot 1"></div>
+                    <div class="screenshot-item"><img src="https://files.catbox.moe/k3w4o1.png" alt="Screenshot 2"></div>
+                    <div class="screenshot-item"><img src="https://files.catbox.moe/k3w4o1.png" alt="Screenshot 3"></div>
+                    <div class="screenshot-item"><img src="https://files.catbox.moe/k3w4o1.png" alt="Screenshot 4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FAQ SECTION ==================== -->
+        <section id="faq">
+            <div class="container">
+                <h2>Pertanyaan yang Sering Diajukan (FAQ)</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">Bagaimana cara menyewa bot ini? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Cukup mudah! Klik tombol "Sewa Sekarang" atau hubungi langsung nomor owner (6285216506762). Pilih paket, lakukan pembayaran, dan bot akan segera ditambahkan ke grup Anda.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Apa saja perbedaan Paket Sewa dan Premium? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Paket Sewa adalah untuk menambahkan bot ke grup Anda, sehingga semua anggota grup bisa menikmatinya. Paket Premium adalah untuk akses fitur-fitur eksklusif tanpa batas di chat pribadi Anda dengan bot.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Apakah bot aman? Apakah data saya disimpan? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Tentu saja. Keamanan adalah prioritas kami. Bot tidak menyimpan data pribadi pengguna secara sembarangan. Data yang digunakan hanya untuk keperluan operasional bot seperti menyimpan pengaturan grup.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Bagaimana jika bot mengalami error atau offline? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Jika bot mengalami masalah, Anda bisa langsung melaporkannya ke owner. Kami berusaha untuk menjaga bot online 24/7 dan memberikan solusi secepat mungkin jika ada kendala.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== HARGA SECTION ==================== -->
+        <section id="harga">
+            <div class="container">
+                <h2>Pilih Paket yang Tepat untuk Anda</h2>
+                <div class="pricing-container">
+                    <!-- Paket Sewa -->
+                    <div class="pricing-card">
+                        <h3>Sewa Bot (Untuk Grup)</h3>
+                        <div class="price">Rp 15.000 <span>/ 1 Bulan</span></div>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Bot aktif di 1 grup</li>
+                            <li><i class="fas fa-check-circle"></i> Akses 422+ fitur utama</li>
+                            <li><i class="fas fa-check-circle"></i> Support dari owner</li>
+                            <li><i class="fas fa-check-circle"></i> Update fitur berkala</li>
+                        </ul>
+                        <a href="https://wa.me/6285216506762?text=Halo%20kak,%20saya%20mau%20sewa%20bot%201%20bulan" class="btn-primary">Pilih Paket</a>
+                    </div>
+                    <div class="pricing-card best-value">
+                        <h3>Sewa Bot (Untuk Grup)</h3>
+                        <div class="price">Rp 25.000 <span>/ 2 Bulan</span></div>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Bot aktif di 1 grup</li>
+                            <li><i class="fas fa-check-circle"></i> Akses 422+ fitur utama</li>
+                            <li><i class="fas fa-check-circle"></i> Support prioritas dari owner</li>
+                            <li><i class="fas fa-check-circle"></i> Update fitur berkala</li>
+                            <li><i class="fas fa-check-circle"></i> **Hemat Rp 5.000**</li>
+                        </ul>
+                        <a href="https://wa.me/6285216506762?text=Halo%20kak,%20saya%20mau%20sewa%20bot%202%20bulan" class="btn-primary">Pilih Paket</a>
+                    </div>
+                    <!-- Paket Premium -->
+                    <div class="pricing-card">
+                        <h3>Premium (Untuk User)</h3>
+                        <div class="price">Rp 8.000 <span>/ 1 Bulan</span></div>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Akses fitur premium pribadi</li>
+                            <li><i class="fas fa-check-circle"></i> Limit tanpa batas</li>
+                            <li><i class="fas fa-check-circle"></i> Bisa chat bot di pribadi</li>
+                            <li><i class="fas fa-check-circle"></i> Fitur eksklusif lainnya</li>
+                        </ul>
+                        <a href="https://wa.me/6285216506762?text=Halo%20kak,%20saya%20mau%20beli%20premium%201%20bulan" class="btn-primary">Pilih Paket</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CARA PAKAI SECTION ==================== -->
+        <section id="cara-pakai">
+            <div class="container">
+                <h2>Cara Mudah Mulai Menggunakan Nime</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <p>Hubungi Owner</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <p>Pilih Paket & Lakukan Pembayaran</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <p>Bot akan ditambahkan ke Grup Anda</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <p>Nikmati semua fiturnya!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== DEVELOPER SECTION ==================== -->
+        <section id="developer">
+            <div class="container">
+                <h2>Tentang Developer</h2>
+                <div class="developer-card">
+                    <img src="https://files.catbox.moe/dyg79h.jpg" alt="Raa Vynee Photo" class="developer-photo">
+                    <div class="developer-info">
+                        <h3>Raa Vynee</h3>
+                        <p>Saya adalah seorang developer bot berusia 19 tahun yang sangat antusias dalam pengembangan teknologi, khususnya otomasi dan AI. Nime - Assistant adalah hasil karya saya untuk membantu dan menghibur kalian semua di WhatsApp. Terima kasih sudah menggunakan bot saya!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== KONTAK SECTION ==================== -->
+        <section id="kontak">
+            <div class="container">
+                <h2>Hubungi & Bergabung</h2>
+                <div class="contact-grid">
+                    <a href="https://wa.me/6285134116039" class="contact-item" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <p>Chat dengan Bot</p>
+                            <a href="https://wa.me/6285134116039">6285134116039</a>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/6285216506762" class="contact-item" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <p>Hubungi Owner</p>
+                            <a href="https://wa.me/6285216506762">6285216506762</a>
+                        </div>
+                    </a>
+                    <a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi" class="contact-item" target="_blank">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <p>Grup Komunitas</p>
+                            <a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi">200+ Member</a>
+                        </div>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q" class="contact-item" target="_blank">
+                        <i class="fas fa-bullhorn"></i>
+                        <div>
+                            <p>Saluran Resmi</p>
+                            <a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q">50+ Pengikut</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Nime - Assistant. Dikembangkan dengan <i class="fas fa-heart" style="color: var(--developer-color);"></i> oleh Raa Vynee.</p>
+        </div>
+    </footer>
+
+    <!-- ==================== STICKY CTA ==================== -->
+    <div class="sticky-cta" id="stickyCta">
+        <a href="https://wa.me/6285216506762?text=Halo%20kak,%20saya%20mau%20sewa%20bot">Sewa Sekarang!</a>
+    </div>
+
+    <!-- ==================== MODAL FOR SCREENSHOTS ==================== -->
+    <div id="screenshotModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- FAQ Accordion ---
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    
+                    // Close other open answers
+                    document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                        if (openAnswer !== answer) {
+                            openAnswer.classList.remove('show');
+                            openAnswer.previousElementSibling.classList.remove('active');
+                        }
+                    });
+
+                    answer.classList.toggle('show');
+                    question.classList.toggle('active');
+                });
+            });
+
+            // --- Screenshot Modal ---
+            const modal = document.getElementById('screenshotModal');
+            const modalImg = document.getElementById('modalImg');
+            const screenshots = document.querySelectorAll('.screenshot-item img');
+            const closeModal = document.querySelector('.close');
+
+            screenshots.forEach(img => {
+                img.addEventListener('click', () => {
+                    modal.style.display = 'block';
+                    modalImg.src = img.src;
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // --- Animated Counter ---
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // The lower the faster
+
+            const countUp = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 1);
+                        } else {
+                            counter.innerText = target + '+';
+                        }
+                    };
+                    updateCount();
+                });
+            };
+
+            // Trigger counter animation on scroll
+            const counterSection = document.querySelector('.counter-section');
+            const counterOptions = {
+                rootMargin: '0px 0px -200px 0px'
+            };
+            const counterObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        countUp();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, counterOptions);
             
-            <div class="video-grid" id="videoGrid">
-                <!-- Videos will be dynamically loaded here -->
-            </div>
-        </div>
-    </section>
+            if(counterSection) {
+                counterObserver.observe(counterSection);
+            }
 
-    <!-- Upload Video Modal -->
-    <div class="upload-modal" id="uploadModal">
-        <div class="upload-modal-content">
-            <div class="upload-modal-header">
-                <h3 class="upload-modal-title">Upload Video Baru</h3>
-                <button class="upload-modal-close" id="closeUploadModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="upload-modal-body">
-                <form id="uploadVideoForm">
-                    <div class="form-group">
-                        <label for="videoTitle">Judul Video</label>
-                        <input type="text" id="videoTitle" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="videoDescription">Deskripsi</label>
-                        <textarea id="videoDescription" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="videoCategory">Kategori</label>
-                        <select id="videoCategory" class="form-control">
-                            <option value="demo">Demo</option>
-                            <option value="tutorial">Tutorial</option>
-                            <option value="feature">Fitur</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="videoUrl">URL Video</label>
-                        <input type="text" id="videoUrl" class="form-control" placeholder="https://example.com/video.mp4" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="videoThumbnail">URL Thumbnail (Opsional)</label>
-                        <input type="text" id="videoThumbnail" class="form-control" placeholder="https://example.com/thumbnail.jpg">
-                    </div>
-                    <div class="form-group">
-                        <span class="notification-close"><i class="fas fa-times"></i></span>
-    </div>
-    </div>
+            // --- Sticky CTA Button ---
+            const stickyCta = document.getElementById('stickyCta');
+            const heroSection = document.querySelector('.hero');
+            const pricingSection = document.getElementById('harga');
+
+            const toggleStickyCta = () => {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const pricingTop = pricingSection.offsetTop;
+
+                if (window.scrollY > heroBottom && window.scrollY < (pricingTop - 200)) {
+                    stickyCta.classList.add('show');
+                } else {
+                    stickyCta.classList.remove('show');
+                }
+            };
+
+            window.addEventListener('scroll', toggleStickyCta);
+
+        });
+    </script>
 </body>
 </html>
