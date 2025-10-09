@@ -118,6 +118,36 @@ body {
     box-shadow: none;
 }
 
+/* Admin Link Styles */
+.admin-link {
+    position: relative;
+    color: var(--text-primary) !important;
+    transition: all 0.3s ease;
+}
+
+.admin-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-1);
+    transition: width 0.3s ease;
+}
+
+.admin-link:hover::after {
+    width: 100%;
+}
+
+.admin-link:hover {
+    color: var(--primary) !important;
+}
+
+.admin-link i {
+    margin-right: 5px;
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
@@ -181,7 +211,6 @@ body {
     margin-bottom: 40px;
     color: var(--text-secondary);
     max-width: 600px;
-    line-height: 1.7;
 }
 
 .hero-buttons {
@@ -254,7 +283,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.2) 0%, rgba(18, 140, 126, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.2) 0%, rgba(18, 140, 126, 0.2) 100%;
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 2;
@@ -333,6 +362,7 @@ body {
 
 .video-modal-close {
     background: none;
+    border: <span class="notification-close"><i class="fas fa-times"></i></i>
     border: none;
     color: var(--text-secondary);
     font-size: 1.5rem;
@@ -352,6 +382,7 @@ body {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 20px;
 }
 
 /* Floating Elements */
@@ -434,1014 +465,328 @@ body {
 }
 
 .album-title span {
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.album-description {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.7;
-}
-
-.video-actions-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.video-filter {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 10px 25px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 25px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-.filter-btn:hover, .filter-btn.active {
-    background-color: var(--primary);
-    color: var(--dark);
-    border-color: var(--primary);
-}
-
-.upload-btn {
-    padding: 12px 25px;
-    background-color: var(--primary);
-    color: var(--dark);
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-}
-
-.upload-btn:hover {
-    background-color: var(--secondary);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-}
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 40px;
-}
-
-.video-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid var(--border);
-}
-
-.video-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.video-thumbnail-container {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    overflow: hidden;
-}
-
-.video-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.video-card:hover .video-thumbnail {
-    transform: scale(1.05);
-}
-
-.video-duration {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.video-info {
-    padding: 25px;
-}
-
-.video-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--text-primary);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.video-description {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.5;
-}
-
-.video-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.video-date, .video-views {
-    display: flex;
-    align-items: center;
-}
-
-.video-date i, .video-views i {
-    margin-right: 5px;
-}
-
-.video-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.video-action-btn {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-size: 1.1rem;
-}
-
-.video-action-btn:hover {
-    color: var(--primary);
-}
-
-/* Upload Modal */
-.upload-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
-
-.upload-modal.active {
-    display: flex;
-}
-
-.upload-modal-content {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-}
-
-.upload-modal-header {
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-}
-
-.upload-modal-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.upload-modal-close {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.upload-modal-close:hover {
-    color: var(--text-primary);
-}
-
-.upload-modal-body {
-    padding: 40px;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 1.1rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 15px;
-    background-color: var(--card-hover);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 15px 20px;
-    background-color: var(--primary);
-    color: var(--dark);
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 1.1rem;
-}
-
-.btn-submit:hover {
-    background-color: var(--secondary);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-}
-
-/* Features Section */
-.features {
-    background-color: var(--dark);
-}
-
-.feature-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 30px;
-    transition: all 0.3s ease;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--border);
-}
-
-.feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    background-color: var(--card-hover);
-}
-
-.feature-card:hover::before {
-    opacity: 1;
-}
-
-.feature-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-    font-size: 2rem;
-    background: var(--gradient-1);
-    color: white;
-}
-
-.feature-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.feature-description {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    font-size: 1.05rem;
-}
-
-/* Stats Section */
-.stats {
-    background: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.stats::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(37, 211, 102, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(31, 111, 235, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
-    z-index: 0;
-}
-
-.stat-card {
-    text-align: center;
-    padding: 40px 30px;
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    height: 100%;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    background-color: var(--card-hover);
-}
-
-.stat-card:hover::before {
-    opacity: 1;
-}
-
-.stat-icon {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stat-number {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stat-label {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Team Section */
-.team {
-    background-color: var(--dark);
-}
-
-.team-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-}
-
-.team-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.team-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    background-color: var(--card-hover);
-}
-
-.team-card:hover::before {
-    opacity: 1;
-}
-
-.member-img-container {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 20px;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid var(--border);
-}
-
-.member-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.team-card:hover .member-img {
-    transform: scale(1.05);
-}
-
-.member-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.member-role {
-    color: var(--primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-}
-
-/* Developer Section */
-.developer {
-    background: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
-}
-
-.developer-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    padding: 50px;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-}
-
-.developer-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
-    opacity: 0.5;
-    z-index: -1;
-}
-
-.developer-img-container {
-    position: relative;
-    width: 250px;
-    height: 250px;
-    margin: 0 auto 30px;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid var(--border);
-}
-
-.developer-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.developer-card:hover .developer-img {
-    transform: scale(1.05);
-}
-
-.developer-name {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.developer-role {
-    font-size: 1.4rem;
-    color: var(--primary);
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.developer-bio {
-    color: var(--text-secondary);
-    margin-bottom: 30px;
-    line-height: 1.7;
-    font-size: 1.1rem;
-}
-
-.developer-skills {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.skill-badge {
-    background-color: rgba(37, 211, 102, 0.1);
-    color: var(--text-primary);
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: 1px solid var(--primary);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.skill-badge:hover {
-    background-color: rgba(37, 211, 102, 0.2);
-    transform: translateY(-3px);
-}
-
-/* Contact Section */
-.contact {
-    background-color: var(--dark);
-}
-
-.contact-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 30px;
-    height: 100%;
-    transition: all 0.3s ease;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    background-color: var(--card-hover);
-}
-
-.contact-card:hover::before {
-    opacity: 1;
-}
-
-.contact-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    background: var(--gradient-1);
-    color: white;
-}
-
-.contact-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.contact-info {
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    font-size: 1.05rem;
-}
-
-.contact-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.05rem;
-}
-
-.contact-link:hover {
-    color: var(--secondary);
-    transform: translateX(5px);
-}
-
-.contact-link i {
-    margin-right: 10px;
-}
-
-/* Footer */
-.footer {
-    background: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
-    padding: 60px 0 20px;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.footer-logo img {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    margin-right: 15px;
-    border: 2px solid var(--primary);
-}
-
-.footer-logo h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.footer-description {
-    color: var(--text-secondary);
-    margin-bottom: 30px;
-    line-height: 1.7;
-    font-size: 1.05rem;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 15px;
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1rem;
-}
-
-.footer-links a:hover {
-    color: var(--primary);
-    transform: translateX(5px);
-}
-
-.footer-links a i {
-    margin-right: 10px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.social-icon {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(37, 211, 102, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-    border: 1px solid var(--primary);
-}
-
-.social-icon:hover {
-    background-color: var(--primary);
-    transform: translateY(-5px);
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-}
-
-.copyright i {
-    color: #ff4757;
-}
-
-/* Notification Container */
-.notification-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 3000;
-    max-width: 400px;
-}
-
-.notification {
-    background-color: var(--card-bg);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-left: 4px solid var(--primary);
-    animation: slideIn 0.3s ease;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    overflow: hidden;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.notification.success {
-    border-left: 4px solid var(--success);
-}
-
-.notification.error {
-    border-left: 4px solid var(--error);
-}
-
-.notification.warning {
-    border-left: 4px solid var(--warning);
-}
-
-.notification.info {
-    border-left: 4px solid var(--info);
-}
-
-.notification-icon {
-    background-color: rgba(37, 211, 102, 0.2);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    font-size: 1.3rem;
-    margin-right: 15px;
-    flex-shrink: 0;
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-title {
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text-primary);
-    font-size: 1rem;
-}
-
-.notification-message {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.notification-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.notification-close:hover {
-    color: var(--text-primary);
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-    .hero-title {
-        font-size: 4rem;
-    }
-    
-    .section-title {
-        font-size: 3rem;
-    }
-    
-    .album-title {
-        font-size: 3rem;
-    }
-    
-    .video-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    }
-}
-
-@media (max-width: 992px) {
-    .hero-title {
-        font-size: 3.5rem;
-    }
-    
-    .section-title {
-        font-size: 2.8rem;
-    }
-    
-    .album-title {
-        font-size: 2.8rem;
-    }
-    
-    .video-grid {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-    
-    .section-title {
-        font-size: 2.5rem;
-    }
-    
-    .album-title {
-        font-size: 2.5rem;
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
-    }
-    
-    .developer-card {
-        padding: 40px 20px;
-    }
-    
-    .video-modal-content {
-        width: 95%;
-        max-width: 500px;
-    }
-    
-    .video-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .video-actions-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .upload-modal-content {
-        width: 95%;
-        max-height: 95vh;
-    }
-    
-    .upload-modal-body {
-        padding: 20px;
-    }
-    
-    .notification-container {
-        max-width: 350px;
-    }
-    
-    .notification {
-        padding: 15px;
-    }
-    
-    .notification-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-    }
-    
-    .notification-title {
-        font-size: 0.9rem;
-    }
-    
-    .notification-message {
-        font-size: 0.85rem;
-    }
-}
+    background: var(--div class="notification-close"><i class="fas fa-times"></i></i>
+    </div>
+    <div class="video-actions-bar" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-filter">
+                    <button class="filter-btn active" data-filter="all">Semua</button>
+                    <button class="filter-btn" data-filter="demo">Demo</button>
+                    <button class="filter-btn" data-filter="tutorial">Tutorial</button>
+                    <button class="filter-btn" data-filter="feature">Fitur</button>
+                </div>
+                <button class="upload-btn" id="uploadVideoBtn">
+                    <i class="fas fa-upload"></i> Upload Video
+                </button>
+            </div>
+            
+            <div class="video-grid" id="videoGrid">
+                <!-- Videos will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Video Modal -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-modal-content">
+            <div class="upload-modal-header">
+                <h3 class="upload-modal-title">Upload Video Baru</h3>
+                <button class="upload-modal-close" id="closeUploadModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="upload-modal-body">
+                <form id="uploadVideoForm">
+                    <div class="form-group">
+                        <label for="videoTitle">Judul Video</label>
+                        <input type="text" id="videoTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDescription">Deskripsi</label>
+                        <textarea id="videoDescription" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoCategory">Kategori</label>
+                        <select id="videoCategory" class="form-control">
+                            <option value="demo">Demo</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="feature">Fitur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoUrl">URL Video</label>
+                        <input type="text" id="videoUrl" class="form-control" placeholder="https://example.com/video.mp4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoThumbnail">URL Thumbnail (Opsional)</label>
+                        <input type="text" id="videoThumbnail" class="form-control" placeholder="https://example.com/thumbnail.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDuration">Durasi</label>
+                        <input type="text" id="videoDuration" class="form-control" placeholder="0:30" required>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-upload"></i> Upload Video
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="section features">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Fitur <span>Unggulan</span></h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3 class="feature-title">Downloader</h3>
+                        <p class="feature-description">Unduh video, musik, dan gambar dari berbagai platform seperti YouTube, Instagram, TikTok, dan lainnya dengan mudah.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="feature-title">AI Assistant</h3>
+                        <p class="feature-description">Asisten AI cerdas yang dapat membantu menjawab pertanyaan, membuat teks, dan memberikan rekomendasi.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="feature-title">Edit Foto</h3>
+                        <p class="feature-description">Edit foto dengan berbagai efek, filter, dan tools editing langsung melalui WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="feature-title">Pencarian</h3>
+                        <p class="feature-description">Cari informasi, gambar, berita, dan konten lainnya langsung melalui WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="feature-title">Tools</h3>
+                        <p class="feature-description">Berbagai tools berguna seperti kalkulator, konverter, QR code generator, dan lainnya.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <h3 class="feature-title">Stiker</h3>
+                        <p class="feature-description">Buat stiker kustom dari gambar atau video, dan akses ribuan stiker menarik.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section stats">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Statistik <span>Bot</span></h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="stat-number" data-count="422">422</div>
+                        <div class="stat-label">Fitur Tersedia</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" data-count="1000">1000+</div>
+                        <div class="stat-label">Pengguna Aktif</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-number" data-count="100">100+</div>
+                        <div class="stat-label">Grup Terdaftar</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="div class="notification-container" id="notificationContainer">
+        <!-- Notifications will be dynamically added here -->
+    </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section team">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Tim <span>Pengembang</span></h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="member-img-container">
+                            <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="member-img">
+                        </div>
+                        <h4 class="member-name">Zura</h4>
+                        <p class="member-role">Founder & Lead Developer</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="member-img-container">
+                            <img src="https://files.catbox.moe/40uk3x.jpg" alt="Kayzu" class="member-img">
+                        </div>
+                        <h4 class="member-name">Kayzu</h4>
+                        <p class="member-role">Developer</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="member-img-container">
+                            <img src="https://g.top4top.io/p_3568n59kf1.jpg" alt="Kyrie" class="member-img">
+                        </div>
+                        <h4 class="member-name">Kyrie</h4>
+                        <p class="member-role">Developer</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="div class="notification-container" id="notificationContainer">
+        <!-- Notifications will be dynamically added here -->
+    </section>
+
+    <!-- Developer Section -->
+    <section id="developer" class="section developer">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Tentang <span>Founder</span></h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="developer-card">
+                        <div class="developer-img-container">
+                            <img src="https://files.catbox.moe/dyg79h.jpg" alt="Zura" class="developer-img">
+                        </div>
+                        <h3 class="developer-name">Zura</h3>
+                        <p class="developer-role">Founder & Lead Developer</p>
+                        <p class="developer-bio">Zura adalah seorang developer berbakat dengan keahlian khusus dalam JavaScript. Dengan visi untuk menciptakan solusi digital yang inovatif, ia mendirikan Nime - Assisten sebagai bot WhatsApp serbaguna dengan berbagai fitur untuk memenuhi kebutuhan pengguna.</p>
+                        <div class="developer-skills">
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">Node.js</span>
+                            <span class="skill-badge">WhatsApp API</span>
+                            <span class="skill-badge">Bot Development</span>
+                            <span class="skill-badge">UI/UX Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Hubungi <span>Kami</span></h2>
+            <div class="row">
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="contact-title">Owner</h3>
+                        <p class="contact-info">Hubungi owner untuk informasi lebih lanjut</p>
+                        <a href="https://wa.me/6285216506762" class="contact-link" target="_blank">
+                            <i class="fab fa-whatsapp"></i> +62 852-1650-6762
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="contact-title">Bot</h3>
+                        <p class="contact-info">Tambahkan bot ke kontak Anda</p>
+                        <a href="https://wa.me/6285134116039" class="contact-link" target="_blank">
+                            <i class="fab fa-whatsapp"></i> +62 851-3411-6039
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="contact-title">Grup WhatsApp</h3>
+                        <p class="contact-info">Bergabung dengan komunitas kami</p>
+                        <a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi" class="contact-link" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Join Grup
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos="notification-container" id="notificationContainer">
+        <!-- Notifications will be dynamically added here -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="footer-logo">
+                        <img src="https://files.catbox.moe/u3qcae.jpeg" alt="Nime - Assistent">
+                        <h3>Nime - Assistent</h3>
+                    </div>
+                    <p class="footer-description">Bot WhatsApp serbaguna dengan 422+ fitur untuk memenuhi kebutuhan digital Anda.</p>
+                    <div class="social-icons">
+                        <a href="https://wa.me/6285134116039" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="mb-4">Link Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Fitur</a></li>
+                        <li><a href="#stats"><i class="fas fa-chevron-right"></i> Statistik</a></li>
+                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Tim</a></li>
+                        <li><a href="#developer"><i class="fas fa-chevron-right"></i> Pengembang</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="mb-4">Kontak</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://wa.me/6285216506762"><i class="fas fa-phone"></i> Owner: +62 852-1650-6762</a></li>
+                        <li><a href="https://wa.me/6285134116039"><i class="fas fa-robot"></i> Bot: +62 851-3411-6039</a></li>
+                        <li><a href="https://chat.whatsapp.com/J1yuc7DVgb42TlXAOzpdSi"><i class="fab fa-whatsapp"></i> Join Grup
+                        </a>
+                        <li><a href="https://whatsapp.com/channel/0029VbAsWHI05MUYohMdAO0q"><i class="fab fa-broadcast-tower"></i> Follow Channel
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Nime - Assistent. All Rights Reserved. Made with <i class="fas fa-heart"></i> by Zura</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

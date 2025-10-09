@@ -61,7 +61,7 @@ videoModal.addEventListener('click', function(e) {
 
 // Upload Video Modal
 const uploadVideoBtn = document.getElementById('uploadVideoBtn');
-const uploadModal = document.getElementById('uploadModal');
+const uploadModal = document.getElementById('uploadVideoBtn');
 const closeUploadModal = document.getElementById('closeUploadModal');
 const uploadVideoForm = document.getElementById('uploadVideoForm');
 
@@ -137,7 +137,7 @@ class VideoDatabase {
                     description: "Demo lengkap bot Nime - Assisten dengan berbagai fitur menarik",
                     category: "demo",
                     duration: "0:30",
-                    views: 1250,
+                    views: 0,
                     date: new Date().toISOString()
                 }
             ];
@@ -216,7 +216,7 @@ class VideoDatabase {
         card.innerHTML = `
             <div class="video-thumbnail-container">
                 <img src="${thumbnailUrl}" alt="${video.title}" class="video-thumbnail">
-                <div class="video-duration">${video.duration}</div>
+                    <div class="video-duration">${video.duration}</div>
             </div>
             <div class="video-info">
                 <h3 class="video-title">${video.title}</h3>
@@ -249,14 +249,28 @@ class VideoDatabase {
         const deleteBtn = card.querySelector('.delete-video');
 
         playBtn.addEventListener('click', () => this.playVideo(video));
-        editBtn.addEventListener('click', () => this.editVideo(video));
-        deleteBtn.addEventListener('click', () => this.confirmDeleteVideo(video.id));
+        
+        // Add edit and delete buttons only for developer
+        if (isDeveloper()) {
+            const editBtn = card.querySelector('.edit-video');
+            const deleteBtn = card.querySelector('.delete-video');
+            
+            if (editBtn) {
+                editBtn.addEventListener('click', () => this.editVideo(video));
+            }
+            
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', () => {
+                    this.confirmDeleteVideo(video.id);
+                });
+            }
+        }
 
         return card;
     }
 
     extractYouTubeId(url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
     }
@@ -342,11 +356,9 @@ function showNotification(title, message, type = 'info') {
         <div class="notification-content">
             <div class="notification-title">${title}</div>
             <div class="notification-message">${message}</div>
+            <div class="notification-time">${this.formatTime(new Date())}</div>
         </div>
-        <div class="notification-close">
-            <i class="fas fa-times"></i>
-        </div>
-    `;
+        `;
     
     // Add to container
     notificationContainer.appendChild(notification);
@@ -369,7 +381,7 @@ function showNotification(title, message, type = 'info') {
             if (notificationContainer.contains(notification)) {
                 notificationContainer.removeChild(notification);
             }
-        }, 300);
+        }, 5000);
     }, 5000);
 }
 
@@ -420,8 +432,43 @@ function animateStats() {
         }
     }
 
-    window.addEventListener('scroll', checkAndAnimate);
-    checkAndAnimate(); // Check on initial load
+    function checkAndAnimate() {
+        window.addEventListener('scroll', checkAndAnimate);
+        checkAndAnimate(); // Check on initial load
+    }
+
+    // Initialize components
+document.addEventListener('DOMContentLoaded', function() {
+        const videoDB = new VideoDatabase();
+        
+        // Animate stats on scroll
+        animateStats();
+        
+        // Show welcome notification
+        setTimeout(() => {
+            showNotification('Selamat Datang', 'Terima kasih telah mengunjungi website Nime - Assisten', 'success');
+        }, 1000);
+        
+        // Track page views
+        window.addEventListener('load', () => {
+            videoDB.trackPageViews();
+        });
+        
+        // Animate stats on scroll
+        window.addEventListener('scroll', animateStats);
+        
+        // Simulate user activity
+        setInterval(() => {
+            const activities = [
+                { icon: 'fa-user', title: 'Pengunjung baru', message: 'Seseorang baru mengunjungi website' },
+                { icon: 'fa-video', title: 'Video ditonton', message: 'Seseorang menonton video demo' },
+                { icon: 'fa-download', title: 'Unduhan baru', message: 'Seseorang mengunduh konten konten' }
+            ];
+            
+            const activity = activities[Math.floor(Math.random() * activities.length)];
+            this.addActivity(activity);
+        }, 8000 + Math.random() * 20000); // Random interval between 8-28 seconds
+    }, 5000 + Math.random() * 20000); // Random interval between 20-40 seconds
 }
 
 // Initialize components
@@ -435,4 +482,54 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         showNotification('Selamat Datang', 'Terima kasih telah mengunjungi website Nime - Assisten', 'success');
     }, 1000);
+    
+    // Track page views
+    window.addEventListener('load', () => {
+        videoDB.trackPageViews();
+    });
+    
+    // Simulate user activity
+    setInterval(() => {
+        const activities = [
+            { icon: 'fa-user', title: 'Pengunjung baru', message: 'Seseorang baru mengunjungi website' },
+            { icon: 'fa-video', title: 'Video ditonton', message: 'Seseorang menonton video demo' },
+            { icon: 'fa-download', title: 'Unduhan baru', message: 'Seseorang mengunduh konten konten' }
+        ];
+        
+        const activity = activities[Math.floor(Math.random() * activities.length)];
+        this.addActivity(activity);
+    }, 5000 + Math.random() * 20000); // Random interval between 5-15 seconds
+});
+
+// Initialize components
+document.addEventListener('DOMContentLoaded', function() {
+    const videoDB = new VideoDB();
+    
+    // Animate stats on scroll
+    animateStats();
+    
+    // Show welcome notification
+    setTimeout(() => {
+        showNotification('Selamat Datang', 'Terima kasih telah mengunjungi website Nime - Assisten', 'success');
+    }, 1000);
+    
+    // Track page views
+    window.addEventListener('load', () => {
+        videoDB.trackPageViews();
+    });
+    
+    // Animate stats on scroll
+    window.addEventListener('scroll', animateStats);
+    
+    // Simulate user activity
+    setInterval(() => {
+        const activities = [
+            { icon: 'fa-user', title: 'Pengunjung baru', message: 'Seseorang baru mengunjungi website' },
+            { icon: 'fa-video', title: 'Video ditonton', message: 'Seseorang menonton video demo' },
+            { icon: 'fa-download', title: 'Unduhan baru', message: 'Seseorang mengunduh konten konten' }
+        ];
+        
+        const activity = activities[Math.floor(Math.random() * activities.length)];
+        this.addActivity(activity);
+    }, 5000 + Math.random() * 20000); // Random interval between 5-15 seconds
 });
