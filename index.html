@@ -10,30 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Real-time Visitor Counter -->
-    <div class="visitor-counter">
-        <div class="visitor-icon">
-            <i class="fas fa-users"></i>
-        </div>
-        <div class="visitor-info">
-            <div class="visitor-count" id="visitorCount">0</div>
-            <div class="visitor-label">Pengunjung Online</div>
-        </div>
-    </div>
-
-    <!-- Real-time Notification Container -->
-    <div class="notification-container" id="notificationContainer">
-        <!-- Notifications will be added here dynamically -->
-    </div>
-
-    <!-- Connection Status -->
-    <div class="connection-status" id="connectionStatus">
-        <div class="status-indicator online" id="statusIndicator"></div>
-        <div class="status-text">
-            <span id="statusText">Terhubung</span>
-        </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -113,45 +89,6 @@
         </div>
     </section>
 
-    <!-- Real-time Activity Feed -->
-    <section class="activity-feed">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Aktivitas <span>Real-time</span></h2>
-            <div class="activity-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="totalActivities">0</div>
-                        <div class="stat-label">Total Aktivitas</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="totalUsers">0</div>
-                        <div class="stat-label">Total Pengguna</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="totalVideos">0</div>
-                        <div class="stat-label">Total Video</div>
-                    </div>
-                </div>
-            </div>
-            <div class="activity-list" id="activityList">
-                <!-- Activities will be dynamically added here -->
-            </div>
-        </div>
-    </section>
-
     <!-- Video Modal -->
     <div class="video-modal" id="videoModal">
         <div class="video-modal-content">
@@ -178,11 +115,16 @@
                 <p class="album-description">Koleksi video demo dan tutorial bot Nime - Assisten</p>
             </div>
             
-            <div class="video-filter" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="all">Semua</button>
-                <button class="filter-btn" data-filter="demo">Demo</button>
-                <button class="filter-btn" data-filter="tutorial">Tutorial</button>
-                <button class="filter-btn" data-filter="feature">Fitur</button>
+            <div class="video-actions-bar" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-filter">
+                    <button class="filter-btn active" data-filter="all">Semua</button>
+                    <button class="filter-btn" data-filter="demo">Demo</button>
+                    <button class="filter-btn" data-filter="tutorial">Tutorial</button>
+                    <button class="filter-btn" data-filter="feature">Fitur</button>
+                </div>
+                <button class="upload-btn" id="uploadVideoBtn">
+                    <i class="fas fa-upload"></i> Upload Video
+                </button>
             </div>
             
             <div class="video-grid" id="videoGrid">
@@ -190,6 +132,53 @@
             </div>
         </div>
     </section>
+
+    <!-- Upload Video Modal -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-modal-content">
+            <div class="upload-modal-header">
+                <h3 class="upload-modal-title">Upload Video Baru</h3>
+                <button class="upload-modal-close" id="closeUploadModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="upload-modal-body">
+                <form id="uploadVideoForm">
+                    <div class="form-group">
+                        <label for="videoTitle">Judul Video</label>
+                        <input type="text" id="videoTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDescription">Deskripsi</label>
+                        <textarea id="videoDescription" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoCategory">Kategori</label>
+                        <select id="videoCategory" class="form-control">
+                            <option value="demo">Demo</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="feature">Fitur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoUrl">URL Video</label>
+                        <input type="text" id="videoUrl" class="form-control" placeholder="https://example.com/video.mp4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoThumbnail">URL Thumbnail (Opsional)</label>
+                        <input type="text" id="videoThumbnail" class="form-control" placeholder="https://example.com/thumbnail.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDuration">Durasi</label>
+                        <input type="text" id="videoDuration" class="form-control" placeholder="0:30" required>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-upload"></i> Upload Video
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Features Section -->
     <section id="features" class="section features">
@@ -273,7 +262,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-number" data-count="1000">1000+</div>
                         <div class="stat-label">Pengguna Aktif</div>
                     </div>
                 </div>
