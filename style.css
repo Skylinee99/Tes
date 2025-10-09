@@ -289,6 +289,13 @@ body {
     padding: 100px 0;
 }
 
+.activity-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
 .activity-list {
     max-height: 400px;
     overflow-y: auto;
@@ -1627,6 +1634,50 @@ body {
     color: var(--text-secondary);
 }
 
+.visitors-table-container {
+    overflow-x: auto;
+}
+
+.visitors-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.visitors-table th,
+.visitors-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.visitors-table th {
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: rgba(37, 211, 102, 0.1);
+}
+
+.visitors-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.visitor-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.visitor-status.active {
+    background-color: rgba(37, 211, 102, 0.2);
+    color: var(--primary);
+}
+
+.visitor-status.idle {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--warning);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero-title {
@@ -1741,5 +1792,14 @@ body {
     
     .analytics-body {
         padding: 20px;
+    }
+    
+    .visitors-table {
+        font-size: 0.8rem;
+    }
+    
+    .visitors-table th,
+    .visitors-table td {
+        padding: 8px 10px;
     }
 }

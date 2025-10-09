@@ -102,6 +102,9 @@ class VisitorTracker {
         
         // Track page unload
         this.trackPageUnload();
+        
+        // Update connection status
+        this.updateConnectionStatus();
     }
 
     loadData() {
@@ -150,7 +153,9 @@ class VisitorTracker {
                 device: this.getRandomDevice(),
                 browser: this.getBrowserInfo(),
                 referrer: document.referrer || 'Direct',
-                isNew: true
+                isNew: true,
+                ipAddress: this.generateRandomIP(),
+                sessionId: this.generateSessionId()
             };
             
             this.currentVisitors.push(newVisitor);
@@ -158,13 +163,13 @@ class VisitorTracker {
             this.visitorHistory.push({...newVisitor});
             
             // Show notification for new visitor
-            activityFeed.addNotification('Pengunjung Baru', `Pengunjung dari ${newVisitor.location} telah masuk`, 'fa-user');
+            activityFeed.addNotification('Pengunjung Baru', `Pengunjung dari ${newVisitor.location} (${newVisitor.ipAddress}) telah masuk`, 'fa-user');
             
             // Add to activity feed
             activityFeed.addActivity({
                 icon: 'fa-user',
                 title: 'Pengunjung baru',
-                message: `Pengunjung dari ${newVisitor.location} telah masuk`,
+                message: `Pengunjung dari ${newVisitor.location} (${newVisitor.ipAddress}) telah masuk`,
                 time: new Date().toISOString()
             });
         } else {
@@ -174,13 +179,13 @@ class VisitorTracker {
             existingVisitor.isNew = false;
             
             // Show notification for returning visitor
-            activityFeed.addNotification('Pengunjung Kembali', `Pengunjung dari ${existingVisitor.location} kembali`, 'fa-user');
+            activityFeed.addNotification('Pengunjung Kembali', `Pengunjung dari ${existingVisitor.location} (${existingVisitor.ipAddress}) kembali`, 'fa-user');
             
             // Add to activity feed
             activityFeed.addActivity({
                 icon: 'fa-user',
                 title: 'Pengunjung kembali',
-                message: `Pengunjung dari ${existingVisitor.location} telah kembali`,
+                message: `Pengunjung dari ${existingVisitor.location} (${existingVisitor.ipAddress}) telah kembali`,
                 time: new Date().toISOString()
             });
         }
@@ -193,7 +198,8 @@ class VisitorTracker {
         const locations = [
             'Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Semarang', 
             'Makassar', 'Palembang', 'Tangerang', 'Depok', 'Bekasi',
-            'Batam', 'Pekanbaru', 'Bandar Lampung', 'Malang', 'Yogyakarta'
+            'Batam', 'Pekanbaru', 'Bandar Lampung', 'Malang', 'Yogyakarta',
+            'New York', 'London', 'Tokyo', 'Paris', 'Singapore'
         ];
         return locations[Math.floor(Math.random() * locations.length)];
     }
@@ -227,6 +233,14 @@ class VisitorTracker {
         return browser;
     }
 
+    generateRandomIP() {
+        return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+    }
+
+    generateSessionId() {
+        return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
     updateVisitorCount() {
         const visitorCountElement = document.getElementById('visitorCount');
         if (visitorCountElement) {
@@ -244,6 +258,29 @@ class VisitorTracker {
         if (pageViewsElement) {
             pageViewsElement.textContent = this.pageViews;
         }
+    }
+
+    updateConnectionStatus() {
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        
+        if (navigator.onLine) {
+            statusIndicator.classList.remove('offline');
+            statusText.textContent = 'Terhubung';
+        } else {
+            statusIndicator.classList.add('offline');
+            statusText.textContent = 'Tidak Terhubung';
+        }
+        
+        window.addEventListener('online', () => {
+            statusIndicator.classList.remove('offline');
+            statusText.textContent = 'Terhubung';
+        });
+        
+        window.addEventListener('offline', () => {
+            statusIndicator.classList.add('offline');
+            statusText.textContent = 'Tidak Terhubung';
+        });
     }
 
     startRealTimeSimulation() {
@@ -273,7 +310,7 @@ class VisitorTracker {
                     activityFeed.addActivity({
                         icon: 'fa-user-slash',
                         title: 'Pengunjung keluar',
-                        message: `Pengunjung dari ${leavingVisitor.location} telah keluar`,
+                        message: `Pengunjung dari ${leavingVisitor.location} (${leavingVisitor.ipAddress}) telah keluar`,
                         time: new Date().toISOString()
                     });
                     
@@ -296,7 +333,9 @@ class VisitorTracker {
                     device: this.getRandomDevice(),
                     browser: this.getBrowserInfo(),
                     referrer: 'Direct',
-                    isNew: true
+                    isNew: true,
+                    ipAddress: this.generateRandomIP(),
+                    sessionId: this.generateSessionId()
                 };
                 
                 this.currentVisitors.push(newVisitor);
@@ -304,13 +343,13 @@ class VisitorTracker {
                 this.visitorHistory.push({...newVisitor});
                 
                 // Show notification
-                activityFeed.addNotification('Pengunjung Baru', `Pengunjung dari ${newVisitor.location} telah masuk`, 'fa-user');
+                activityFeed.addNotification('Pengunjung Baru', `Pengunjung dari ${newVisitor.location} (${newVisitor.ipAddress}) telah masuk`, 'fa-user');
                 
                 // Add to activity feed
                 activityFeed.addActivity({
                     icon: 'fa-user',
                     title: 'Pengunjung baru',
-                    message: `Pengunjung dari ${newVisitor.location} telah masuk`,
+                    message: `Pengunjung dari ${newVisitor.location} (${newVisitor.ipAddress}) telah masuk`,
                     time: new Date().toISOString()
                 });
                 
@@ -375,7 +414,8 @@ class VisitorTracker {
             topLocations: this.getTopLocations(),
             topDevices: this.getTopDevices(),
             topBrowsers: this.getTopBrowsers(),
-            newVsReturning: this.getNewVsReturning()
+            newVsReturning: this.getNewVsReturning(),
+            recentVisitors: this.getRecentVisitors()
         };
         
         return analytics;
@@ -426,6 +466,24 @@ class VisitorTracker {
             returning: returningVisitors,
             total: this.visitorHistory.length
         };
+    }
+
+    getRecentVisitors() {
+        return this.currentVisitors
+            .sort((a, b) => new Date(b.lastActivity) - new Date(a.lastActivity))
+            .slice(0, 10)
+            .map(visitor => ({
+                id: visitor.id,
+                location: visitor.location,
+                device: visitor.device,
+                browser: visitor.browser,
+                ipAddress: visitor.ipAddress,
+                entryTime: visitor.entryTime,
+                lastActivity: visitor.lastActivity,
+                pageViews: visitor.pageViews,
+                duration: visitor.duration,
+                isNew: visitor.isNew
+            }));
     }
 }
 
@@ -955,6 +1013,28 @@ function createVisitorAnalytics(visitorTracker) {
                         <div class="analytics-chart" id="newVsReturningChart"></div>
                     </div>
                 </div>
+                <div class="analytics-section full-width">
+                    <h3>Recent Visitors</h3>
+                    <div class="visitors-table-container">
+                        <table class="visitors-table">
+                            <thead>
+                                <tr>
+                                    <th>IP Address</th>
+                                    <th>Location</th>
+                                    <th>Device</th>
+                                    <th>Browser</th>
+                                    <th>Entry Time</th>
+                                    <th>Duration</th>
+                                    <th>Page Views</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentVisitorsTable">
+                                <!-- Visitor rows will be added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     `;
@@ -1059,4 +1139,54 @@ function updateAnalyticsDashboard(visitorTracker) {
             </div>
         </div>
     `;
+    
+    // Update recent visitors table
+    const recentVisitorsTable = document.getElementById('recentVisitorsTable');
+    recentVisitorsTable.innerHTML = '';
+    
+    analytics.recentVisitors.forEach(visitor => {
+        const row = document.createElement('tr');
+        
+        // Calculate duration
+        const entryTime = new Date(visitor.entryTime);
+        const now = new Date();
+        const duration = Math.floor((now - entryTime) / 1000); // in seconds
+        
+        // Format duration
+        let formattedDuration = '';
+        if (duration < 60) {
+            formattedDuration = `${duration}s`;
+        } else if (duration < 3600) {
+            formattedDuration = `${Math.floor(duration / 60)}m ${duration % 60}s`;
+        } else {
+            formattedDuration = `${Math.floor(duration / 3600)}h ${Math.floor((duration % 3600) / 60)}m`;
+        }
+        
+        // Format entry time
+        const entryTimeFormatted = new Date(visitor.entryTime).toLocaleString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        // Determine status
+        const isActive = (now - new Date(visitor.lastActivity)) < 60000; // Active in last minute
+        const statusClass = isActive ? 'active' : 'idle';
+        const statusText = isActive ? 'Active' : 'Idle';
+        
+        row.innerHTML = `
+            <td>${visitor.ipAddress}</td>
+            <td>${visitor.location}</td>
+            <td>${visitor.device}</td>
+            <td>${visitor.browser}</td>
+            <td>${entryTimeFormatted}</td>
+            <td>${formattedDuration}</td>
+            <td>${visitor.pageViews}</td>
+            <td><span class="visitor-status ${statusClass}">${statusText}</span></td>
+        `;
+        
+        recentVisitorsTable.appendChild(row);
+    });
 }
