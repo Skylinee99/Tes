@@ -1,0 +1,141 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.video-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.video-thumbnail {
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+    border-radius: 8px 8px 0 0;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.video-thumbnail:hover .play-overlay {
+    opacity: 1;
+}
+
+.navbar-brand i {
+    font-size: 1.5rem;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.ratio-16x9 {
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-primary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.navbar-dark {
+    background-color: #343a40 !important;
+}
+
+.navbar-dark .navbar-brand {
+    color: #fff;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: #dc3545;
+}
+
+.upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.upload-area:hover {
+    border-color: #dc3545;
+}
+
+.upload-area.dragover {
+    border-color: #dc3545;
+    background-color: #f8f9fa;
+}
+
+.video-preview {
+    max-height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #212529;
+}
+
+.text-muted {
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .video-card {
+        margin-bottom: 1rem;
+    }
+    
+    .col-md-3 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
