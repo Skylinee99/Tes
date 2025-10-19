@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noxa - Assistant | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .bg-custom-primary { background-color: var(--bg-primary); }
+        .bg-custom-secondary { background-color: var(--bg-secondary); }
+        .bg-custom-tertiary { background-color: var(--bg-tertiary); }
+        .text-custom-primary { color: var(--text-primary); }
+        .text-custom-secondary { color: var(--text-secondary); }
+        .text-custom-tertiary { color: var(--text-tertiary); }
+        .border-custom { border-color: var(--border-color); }
+        .card-custom { background-color: var(--card-bg); }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #667eea;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #20BA5A;
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .theme-toggle.active {
+            background: #667eea;
+        }
+        
+        .theme-toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle.active .theme-toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        [data-theme="dark"] .glass-effect {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            animation: particle-animation 1s ease-out forwards;
+        }
+        
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full glass-effect z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-robot text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-custom-primary">Noxa</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#beranda" class="text-custom-secondary hover:text-purple-600 transition">Beranda</a>
+                    <a href="#fitur" class="text-custom-secondary hover:text-purple-600 transition">Fitur</a>
+                    <a href="#kemampuan" class="text-custom-secondary hover:text-purple-600 transition">Kemampuan</a>
+                    <a href="#kontak" class="text-custom-secondary hover:text-purple-600 transition">Kontak</a>
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-sun text-yellow-500"></i>
+                        <div class="theme-toggle" onclick="toggleTheme()">
+                            <div class="theme-toggle-slider">
+                                <i class="fas fa-sun text-yellow-500 text-xs"></i>
+                            </div>
+                        </div>
+                        <i class="fas fa-moon text-purple-500"></i>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="md:hidden flex items-center space-x-3">
+                        <i class="fas fa-sun text-yellow-500 text-sm"></i>
+                        <div class="theme-toggle" onclick="toggleTheme()">
+                            <div class="theme-toggle-slider">
+                                <i class="fas fa-sun text-yellow-500 text-xs"></i>
+                            </div>
+                        </div>
+                        <i class="fas fa-moon text-purple-500 text-sm"></i>
+                    </div>
+                    <button class="md:hidden text-custom-secondary" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md-hidden bg-custom-secondary border-t border-custom">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#beranda" class="block text-custom-secondary hover:text-purple-600">Beranda</a>
+                <a href="#fitur" class="block text-custom-secondary hover:text-purple-600">Fitur</a>
+                <a href="#kemampuan" class="block text-custom-secondary hover:text-purple-600">Kemampuan</a>
+                <a href="#kontak" class="block text-custom-secondary hover:text-purple-600">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="pt-24 pb-20 overflow-hidden relative">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 scroll-reveal">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-custom-primary mb-6">
+                        Halo, Saya <span class="gradient-text">Noxa</span>
+                    </h1>
+                    <p class="text-xl text-custom-secondary mb-8">
+                        Assistant AI cerdas yang siap membantu Anda dengan berbagai kebutuhan. 
+                        Dari menjawab pertanyaan hingga menyelesaikan tugas kompleks, saya ada untuk Anda.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <button onclick="startChat()" class="px-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg transition glow-effect">
+                            <i class="fas fa-comments mr-2"></i>Mulai Chat
+                        </button>
+                        <button onclick="showCapabilities()" class="px-8 py-3 border-2 border-purple-500 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition">
+                            <i class="fas fa-magic mr-2"></i>Lihat Kemampuan
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">10K+</div>
+                            <div class="text-sm text-custom-tertiary">Pengguna Aktif</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">99%</div>
+                            <div class="text-sm text-custom-tertiary">Kepuasan</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">24/7</div>
+                            <div class="text-sm text-custom-tertiary">Online</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative scroll-reveal">
+                    <div class="floating">
+                        <div class="relative">
+                            <img src="https://raw.githubusercontent.com/NimeAssistent/Kazumaa/main/uploader/79602b867f.jpg" 
+                                 alt="Noxa Character" 
+                                 class="w-80 h-80 mx-auto rounded-2xl shadow-2xl object-cover">
+                            <div class="absolute -bottom-4 -right-4 card-custom rounded-2xl shadow-2xl p-6 w-64">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-robot text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-custom-primary">Noxa Assistant</h3>
+                                        <div class="flex items-center space-x-1">
+                                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                            <span class="text-sm text-custom-tertiary">Online</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="bg-custom-tertiary rounded-lg p-3">
+                                        <p class="text-custom-primary text-sm">Hai Noxa, bisa bantu saya?</p>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-3">
+                                        <p class="text-sm">Tentu saja! Saya siap membantu Anda.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="typing-indicator">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <span class="text-xs text-custom-tertiary">Noxa sedang mengetik...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Section -->
+    <section class="py-12 bg-custom-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8 scroll-reveal">
+                <h2 class="text-3xl font-bold text-custom-primary mb-4">Hubungi Noxa Sekarang</h2>
+                <p class="text-lg text-custom-secondary">Klik tombol di bawah untuk terhubung langsung dengan Noxa</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 scroll-reveal">
+                <a href="https://wa.me/6285185757240" target="_blank" class="whatsapp-btn text-white px-8 py-4 rounded-lg font-semibold flex items-center space-x-3 shadow-lg hover:shadow-xl">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    <div class="text-left">
+                        <div class="font-bold">Chat dengan Noxa</div>
+                        <div class="text-sm opacity-90">+62 851-8575-7240</div>
+                    </div>
+                </a>
+                <a href="https://chat.whatsapp.com/BcYAvTqI0kaGgZ4Rg8CiQk" target="_blank" class="bg-purple-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center space-x-3 shadow-lg hover:bg-purple-700 transition hover:shadow-xl">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    <div class="text-left">
+                        <div class="font-bold">Grup Official</div>
+                        <div class="text-sm opacity-90">Bergabung dengan Komunitas</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="fitur" class="py-20 bg-custom-primary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold text-custom-primary mb-4">Fitur Unggulan</h2>
+                <p class="text-xl text-custom-secondary">Kemampuan Noxa untuk membantu Anda setiap hari</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">AI Cerdas</h3>
+                    <p class="text-custom-secondary">Ditenagai oleh teknologi AI terkini untuk memberikan jawaban akurat dan relevan.</p>
+                </div>
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal" style="animation-delay: 0.1s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">Multi Bahasa</h3>
+                    <p class="text-custom-secondary">Mendukung berbagai bahasa untuk komunikasi yang lebih mudah dan global.</p>
+                </div>
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">Aman & Privasi</h3>
+                    <p class="text-custom-secondary">Data Anda aman dan terlindungi dengan standar keamanan tertinggi.</p>
+                </div>
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal" style="animation-delay: 0.3s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">Cepat & Responsif</h3>
+                    <p class="text-custom-secondary">Respon instan dengan latensi minimal untuk pengalaman yang mulus.</p>
+                </div>
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal" style="animation-delay: 0.4s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-puzzle-piece text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">Integrasi Mudah</h3>
+                    <p class="text-custom-secondary">Mudah diintegrasikan dengan berbagai platform dan aplikasi yang Anda gunakan.</p>
+                </div>
+                <div class="card-hover card-custom rounded-xl p-8 scroll-reveal" style="animation-delay: 0.5s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-violet-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-custom-primary mb-3">Terus Berkembang</h3>
+                    <p class="text-custom-secondary">Selalu belajar dan meningkatkan kemampuan untuk memberikan yang terbaik.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section id="kemampuan" class="py-20 bg-custom-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold text-custom-primary mb-4">Kemampuan Noxa</h2>
+                <p class="text-xl text-custom-secondary">Apa saja yang bisa Noxa lakukan untuk Anda?</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 scroll-reveal">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-question-circle text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-custom-primary mb-2">Jawab Pertanyaan</h4>
+                            <p class="text-custom-secondary">Menjawab berbagai pertanyaan dari yang sederhana hingga kompleks dengan akurasi tinggi.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-pen text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-custom-primary mb-2">Buat Konten</h4>
+                            <p class="text-custom-secondary">Membantu menulis artikel, email, postingan media sosial, dan konten lainnya.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-code text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-custom-primary mb-2">Bantuan Pemrograman</h4>
+                            <p class="text-custom-secondary">Membantu debugging, menulis kode, dan menjelaskan konsep pemrograman.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-language text-orange-600 dark:text-orange-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-custom-primary mb-2">Terjemahan Bahasa</h4>
+                            <p class="text-custom-secondary">Menerjemahkan teks antar berbagai bahasa dengan hasil yang natural.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-lightbulb text-pink-600 dark:text-pink-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-custom-primary mb-2">Ide & Kreativitas</h4>
+                            <p class="text-custom-secondary">Memberikan ide kreatif untuk proyek, bisnis, atau kebutuhan pribadi Anda.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative scroll-reveal">
+                    <div class="card-custom rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-custom-primary mb-6">Coba Noxa Sekarang</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="demoInput" placeholder="Ketik pertanyaan Anda..." 
+                                   class="w-full px-4 py-3 bg-custom-tertiary text-custom-primary border border-custom rounded-lg focus:outline-none focus:border-purple-500">
+                            <button onclick="processDemo()" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg transition">
+                                <i class="fas fa-paper-plane mr-2"></i>Kirim
+                            </button>
+                        </div>
+                        <div id="demoResponse" class="mt-6 p-4 bg-custom-tertiary rounded-lg hidden">
+                            <p class="text-custom-primary"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-custom-primary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold text-custom-primary mb-4">Apa Kata Mereka</h2>
+                <p class="text-xl text-custom-secondary">Pengalaman pengguna dengan Noxa</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-custom rounded-xl p-8 shadow-lg scroll-reveal">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/seed/user1/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-semibold text-custom-primary">Andi Pratama</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-custom-secondary">"Noxa sangat membantu dalam pekerjaan saya. Respons cepat dan jawabannya selalu akurat!"</p>
+                </div>
+                <div class="card-custom rounded-xl p-8 shadow-lg scroll-reveal" style="animation-delay: 0.1s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/seed/user2/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-semibold text-custom-primary">Siti Nurhaliza</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-custom-secondary">"Saya menggunakan Noxa untuk membantu menulis konten. Hasilnya luar biasa dan menghemat banyak waktu!"</p>
+                </div>
+                <div class="card-custom rounded-xl p-8 shadow-lg scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/seed/user3/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-semibold text-custom-primary">Budi Santoso</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-custom-secondary">"Sebagai developer, Noxa sangat membantu untuk debugging dan mencari solusi kode. Highly recommended!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-purple-600 to-indigo-700">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6 scroll-reveal">Siap Mencoba Noxa?</h2>
+            <p class="text-xl text-purple-100 mb-8 scroll-reveal">Bergabunglah dengan ribuan pengguna yang telah merasakan kemudahan dengan Noxa</p>
+            <div class="flex flex-wrap justify-center gap-4 scroll-reveal">
+                <a href="https://wa.me/6285185757240" target="_blank" class="whatsapp-btn text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition flex items-center">
+                    <i class="fab fa-whatsapp mr-2"></i>Chat dengan Noxa
+                </a>
+                <a href="https://chat.whatsapp.com/BcYAvTqI0kaGgZ4Rg8CiQk" target="_blank" class="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition flex items-center">
+                    <i class="fab fa-whatsapp mr-2"></i>Join Grup Official
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold">Noxa</span>
+                    </div>
+                    <p class="text-gray-400">Assistant AI cerdas untuk kebutuhan Anda.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Kontak Noxa</h4>
+                    <div class="space-y-3 text-gray-400">
+                        <a href="https://wa.me/6285185757240" target="_blank" class="flex items-center hover:text-white transition">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <span>+62 851-8575-7240</span>
+                        </a>
+                        <a href="https://chat.whatsapp.com/BcYAvTqI0kaGgZ4Rg8CiQk" target="_blank" class="flex items-center hover:text-white transition">
+                            <i class="fas fa-users mr-2"></i>
+                            <span>Grup WhatsApp Official</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Developer</h4>
+                    <div class="space-y-3 text-gray-400">
+                        <p class="font-medium">Raa Vynee</p>
+                        <a href="https://wa.me/6285216506762" target="_blank" class="flex items-center hover:text-white transition">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <span>+62 852-1650-6762</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Noxa Assistant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="card-custom rounded-2xl shadow-2xl w-full max-w-md">
+            <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-6 rounded-t-2xl">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-robot text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Noxa Assistant</h3>
+                            <p class="text-sm text-purple-100">Online - Siap membantu</p>
+                        </div>
+                    </div>
+                    <button onclick="closeChat()" class="text-white/80 hover:text-white">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6 h-96 overflow-y-auto" id="chatMessages">
+                <div class="bg-custom-tertiary rounded-lg p-4 mb-4 max-w-xs">
+                    <p class="text-custom-primary">Halo! Saya Noxa. Ada yang bisa saya bantu?</p>
+                </div>
+            </div>
+            <div class="p-6 border-t border-custom">
+                <div class="flex space-x-2">
+                    <input type="text" id="chatInput" placeholder="Ketik pesan..." 
+                           class="flex-1 px-4 py-2 bg-custom-tertiary text-custom-primary border border-custom rounded-lg focus:outline-none focus:border-purple-500"
+                           onkeypress="if(event.key === 'Enter') sendMessage()">
+                    <button onclick="sendMessage()" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="mt-3 text-center">
+                    <a href="https://wa.me/6285185757//40" target="_blank" class="text-sm text-purple-600 hover:text-purple-700">
+                        <i class="fab fa-whatsapp mr-1"></i>Chat di WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme detection and toggle
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-toggle').classList.add('active');
+                updateThemeIcon('moon');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                updateThemeIcon('sun');
+            }
+        }
+        
+        function toggleTheme() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggle.classList.toggle('active');
+            localStorage.setItem('theme', newTheme);
+            
+            updateThemeIcon(newTheme === 'dark' ? 'moon' : 'sun');
+            
+            // Add particle effect
+            createParticles(event);
+        }
+        
+        function updateThemeIcon(icon) {
+            const slider = document.querySelector('.theme-toggle-slider');
+            if (icon === 'moon') {
+                slider.innerHTML = '<i class="fas fa-moon text-purple-500 text-xs"></i>';
+            } else {
+                slider.innerHTML = '<i class="fas fa-sun text-yellow-500 text-xs"></i>';
+            }
+        }
+        
+        // Particle effect
+        function createParticles(event) {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c'];
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = event.clientX + 'px';
+                particle.style.top = event.clientY + 'px';
+                particle.style.width = '8px';
+                particle.style.height = '8px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Chat functions
+        function startChat() {
+            document.getElementById('chatModal').classList.remove('hidden');
+            document.getElementById('chatInput').focus();
+        }
+        
+        function closeChat() {
+            document.getElementById('chatModal').classList.add('hidden');
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-4 mb-4 max-w-xs ml-auto';
+            userMsg.innerHTML = `<p>${message}</p>`;
+            chatMessages.appendChild(userMsg);
+            
+            input.value = '';
+            
+            // Simulate bot response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'bg-custom-tertiary rounded-lg p-4 mb-4 max-w-xs';
+                botMsg.innerHTML = `<p class="text-custom-primary">Terima kasih atas pesan Anda! Untuk respon lebih cepat, silakan chat langsung di WhatsApp: <a href="https://wa.me/6285185757240" target="_blank" class="text-purple-600 hover:underline">+62 851-8575-7240</a></p>`;
+                chatMessages.appendChild(botMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+        
+        // Demo function
+        function processDemo() {
+            const input = document.getElementById('demoInput');
+            const response = document.getElementById('demoResponse');
+            const value = input.value.trim();
+            
+            if (!value) {
+                alert('Silakan masukkan pertanyaan terlebih dahulu');
+                return;
+            }
+            
+            response.classList.remove('hidden');
+            response.querySelector('p').textContent = 'Noxa sedang memproses pertanyaan Anda...';
+            
+            setTimeout(() => {
+                response.querySelector('p').innerHTML = `Berdasarkan pertanyaan "${value}", Noxa akan memberikan jawaban yang komprehensif dan akurat. <br><br><strong>Chat langsung dengan Noxa di WhatsApp:</strong><br><a href="https://wa.me/6285185757240" target="_blank" class="text-purple-600 hover:underline">+62 851-8575-7240</a>`;
+            }, 1500);
+        }
+        
+        // Other functions
+        function showCapabilities() {
+            document.getElementById('kemampuan').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showDocumentation() {
+            alert('Dokumentasi akan segera tersedia!');
+        }
+        
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+        
+        // Initialize theme on load
+        initTheme();
+        
+        // Add blob animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes blob {
+                0% { transform: translate(0px, 0px) scale(1); }
+                33% { transform: translate(30px, -50px) scale(1.1); }
+                66% { transform: translate(-20px, 20px) scale(0.9); }
+                100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob {
+                animation: blob 7s infinite;
+            }
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+            .animation-delay-4000 {
+                animation-delay: 4s;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
